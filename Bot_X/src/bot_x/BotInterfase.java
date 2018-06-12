@@ -20,8 +20,8 @@ public class BotInterfase extends javax.swing.JFrame {
     public BotInterfase() {
         initComponents();
     }
-    String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-    String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+    String key = "";
+    String secret = "";
     String valent = "ETH_USD";
 
     /**
@@ -122,8 +122,8 @@ public class BotInterfase extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 //  Modules m = new Modules();
-//    String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-//    String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+//    String key = "";
+//    String secret = "";
 //    jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -6,8 +6,7 @@ import javax.xml.transform.Source;
 public class Calculation {
 
     public static void main(String[] args) {
-        String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-        String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+       
         String valent = "ETH_USD";
         Modules mod = new Modules();
        /* BotInterfase b_if = new BotInterfase();
