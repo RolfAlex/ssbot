@@ -18,10 +18,7 @@ import java.util.logging.Logger;
  */
 public class Test_test {
 
-    public static Double getOrderAskPrise(double persProfit, double trustedLimit, String key, String secret ) {
-        
-        String pair = "ETH_USD";
-        String limit = "10";
+    public static Double getOrderAskPrise(String pair, String limit, double persProfit, double trustedLimit, String key, String secret) {
         Modules mod = new Modules();
         double sumOrderAskPrise = 0.0;
         String[] ask_ar = mod.getOrderBook(key, secret, pair, limit).get("ask").toString().split(",\\[");
@@ -33,14 +30,12 @@ public class Test_test {
         System.out.println(averagePrise);
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println(prsPrfSal);
-        double orderPrise = (averagePrise   + prsPrfSal) * 1.004;
+        double orderPrise = (averagePrise + prsPrfSal) * 1.004;
         return orderPrise;
     }
 
-    public static Double getOrderBidPrise(double persProfit, String key, String secret ) throws InterruptedException, SocketTimeoutException {
+    public static Double getOrderBidPrise(String pair, double persProfit, String key, String secret) throws InterruptedException, SocketTimeoutException {
         double r = 0.0;
-       
-        String pair = "ETH_USD";
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
         String bid_ar = mod.getPrise(key, secret, pair).get("1").toString();
@@ -58,16 +53,19 @@ public class Test_test {
     }
 
     public static void main(String[] args) throws InterruptedIOException, InterruptedException {
-        String key = "";
-        String secret = "";
-        String pair = "ETH_USD";
+        Bot_Action btAct = new Bot_Action();
+        String key = btAct.key;
+        String secret = btAct.secret;
+        String pair = btAct.pair;
+        String limit = btAct.limit;
+
         Modules mod = new Modules();
 
         double balans_eth = 0.04395201;
         double balans_usd = 26.5;
-        double salary = 0.5;
-        double orderAsk = getFormatPrise(getOrderAskPrise(salary, balans_usd, key, secret));
-        double orderBid = getFormatPrise(getOrderBidPrise(salary, key, secret));
+        double persProfit = 0.5;
+        double orderAsk = getFormatPrise(getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret));
+        double orderBid = getFormatPrise(getOrderBidPrise(pair, persProfit, key, secret));
 
         double prise = 0.0;
         int lifeTime = 0;
@@ -88,7 +86,7 @@ public class Test_test {
             if (orderAsk <= prise && check == false) {
                 System.out.println("Цена ордера на продажу " + orderAsk);
                 System.out.println("Продано по цене " + prise);
-                orderBid = getOrderBidPrise(salary, key, secret);
+                orderBid = getOrderBidPrise(pair, persProfit, key, secret);
                 System.out.println("Цена ордера на покупку " + orderBid);
                 check = true;
             }
@@ -96,17 +94,17 @@ public class Test_test {
             if (orderBid >= prise && check == true) {
                 System.out.println("Цена ордера на покупку " + orderBid);
                 System.out.println("---Куплено по цене " + prise);
-                orderAsk = getOrderAskPrise(salary, balans_usd, key, secret);
+                orderAsk = getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret);
                 System.out.println("Цена ордера на продажу " + orderAsk);
                 check = false;
             }
             //ЖИЗНЬ ОРДЕРА
             if (lifeTime > orderLife && check == true) {
-                orderBid = getOrderBidPrise(salary, key, secret);
+                orderBid = getOrderBidPrise(pair, persProfit, key, secret);
                 System.out.println("смена ордера на продажу " + orderBid);
                 lifeTime = 0;
             } else if (lifeTime > orderLife && check == false) {
-                orderAsk = getOrderAskPrise(salary, balans_usd, key, secret);
+                orderAsk = getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret);
                 System.out.println("смена ордера на покупку " + orderAsk);
                 lifeTime = 0;
             }
