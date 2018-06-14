@@ -18,31 +18,40 @@ import java.util.logging.Logger;
  */
 public class Test_test {
 
-    public static Double getOrderAskPrise(String pair, String limit, double persProfit, double trustedLimit, String key, String secret) {
+    public static Double getOrderAskPrise(String pair, String limit, double persProfit, double trustedLimit, String key, String secret, boolean checkPrise, double prise) {
         Modules mod = new Modules();
-        double sumOrderAskPrise = 0.0;
+        double orderAskPrise = 0.0;
         String[] ask_ar = mod.getOrderBook(key, secret, pair, limit).get("ask").toString().split(",\\[");
         for (int i = 0; i < ask_ar.length; i++) {
             String[] ar_1 = ask_ar[i].split(",");
-            sumOrderAskPrise += Double.parseDouble(ar_1[0]);
+            orderAskPrise += Double.parseDouble(ar_1[0]);
         }
-        double averagePrise = sumOrderAskPrise / Double.parseDouble(limit);
-        System.out.println(averagePrise);
+        double averagePrise = 0.0;
+        if (checkPrise == true) {
+            orderAskPrise = orderAskPrise;
+            averagePrise = orderAskPrise / Double.parseDouble(limit);
+        } else if (checkPrise == false) {
+            orderAskPrise = prise;
+            averagePrise = orderAskPrise;
+
+        }
+//        System.out.println("averagePrise " + averagePrise);
         double prsPrfSal = trustedLimit * persProfit / 100;
-        System.out.println(prsPrfSal);
+        System.out.println("prsPrfSal " + prsPrfSal);
+        System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
         double orderPrise = (averagePrise + prsPrfSal) * 1.004;
         return orderPrise;
     }
 
-    public static Double getOrderBidPrise(String pair, double persProfit, String key, String secret) throws InterruptedException, SocketTimeoutException {
-        double r = 0.0;
+    public static Double getOrderBidPrise(String pair, double persProfit, String key, String secret, double trustedLimit) throws InterruptedException, SocketTimeoutException {
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
         String bid_ar = mod.getPrise(key, secret, pair).get("1").toString();
-        double prsPrfSal = Double.parseDouble(bid_ar) * persProfit / 100;
-        double orderPrise = (Double.parseDouble(bid_ar) - prsPrfSal) / 1.004;
-        r = orderPrise;
-        return r;
+        double prsPrfSal = trustedLimit * persProfit / 100;
+        double orderPrise = (Double.parseDouble(bid_ar) + prsPrfSal) * 1.004;
+        orderPrise = orderPrise - Double.parseDouble(bid_ar);
+        orderPrise = Double.parseDouble(bid_ar) - orderPrise;
+        return orderPrise;
 
     }
 
@@ -62,16 +71,20 @@ public class Test_test {
         Modules mod = new Modules();
 
         double balans_eth = 0.04395201;
-        double balans_usd = 26.5;
+        double trustedLimit = 26.5;
         double persProfit = 0.5;
-        double orderAsk = getFormatPrise(getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret));
-        double orderBid = getFormatPrise(getOrderBidPrise(pair, persProfit, key, secret));
-
         double prise = 0.0;
+
+        boolean checkPrise = false; // Если !true! значение цены берется по среднему значению N ордеров на покупку если !false! - по текущей цене на валюту
+        prise = getFormatPrise(Double.parseDouble(mod.getPrise(key, secret, pair).get("1").toString()));
+
+        double orderAsk = getFormatPrise(getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise));
+        double orderBid = getFormatPrise(getOrderBidPrise(pair, persProfit, key, secret, trustedLimit));
+
         int lifeTime = 0;
         int orderLife = 3600;
-        boolean check = false;
-        if (check == false) {
+        boolean checkByOrBit = false;
+        if (checkByOrBit == false) {
             System.out.println("Цена ордера на продажу " + orderAsk);
         } else {
             System.out.println("Цена ордера на покупку " + orderBid);
@@ -83,28 +96,30 @@ public class Test_test {
             Thread.sleep(500);
             System.out.println(prise);
             //ПРОДАЖА
-            if (orderAsk <= prise && check == false) {
+            if (orderAsk <= prise && checkByOrBit == false) {
+                System.out.println("***********Срабатывание ордера на ПРОДАЖУ*********");
                 System.out.println("Цена ордера на продажу " + orderAsk);
                 System.out.println("Продано по цене " + prise);
-                orderBid = getOrderBidPrise(pair, persProfit, key, secret);
+                orderBid = getOrderBidPrise(pair, persProfit, key, secret, trustedLimit);
                 System.out.println("Цена ордера на покупку " + orderBid);
-                check = true;
+                checkByOrBit = true;
             }
             //ПОКУПКА
-            if (orderBid >= prise && check == true) {
+            if (orderBid >= prise && checkByOrBit == true) {
+                System.out.println("***********Срабатывание ордера на ПОКУПКУ*********");
                 System.out.println("Цена ордера на покупку " + orderBid);
                 System.out.println("---Куплено по цене " + prise);
-                orderAsk = getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret);
+                orderAsk = getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise);
                 System.out.println("Цена ордера на продажу " + orderAsk);
-                check = false;
+                checkByOrBit = false;
             }
             //ЖИЗНЬ ОРДЕРА
-            if (lifeTime > orderLife && check == true) {
-                orderBid = getOrderBidPrise(pair, persProfit, key, secret);
+            if (lifeTime > orderLife && checkByOrBit == true) {
+                orderBid = getOrderBidPrise(pair, persProfit, key, secret, trustedLimit);
                 System.out.println("смена ордера на продажу " + orderBid);
                 lifeTime = 0;
-            } else if (lifeTime > orderLife && check == false) {
-                orderAsk = getOrderAskPrise(pair, limit, persProfit, balans_usd, key, secret);
+            } else if (lifeTime > orderLife && checkByOrBit == false) {
+                orderAsk = getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise);
                 System.out.println("смена ордера на покупку " + orderAsk);
                 lifeTime = 0;
             }
