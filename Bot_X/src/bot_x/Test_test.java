@@ -8,9 +8,7 @@ package bot_x;
 import java.io.InterruptedIOException;
 import java.net.SocketTimeoutException;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -33,9 +31,7 @@ public class Test_test {
         } else if (checkPrise == false) {
             orderAskPrise = prise;
             averagePrise = orderAskPrise;
-
         }
-//        System.out.println("averagePrise " + averagePrise);
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println("prsPrfSal " + prsPrfSal);
         System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
@@ -46,7 +42,7 @@ public class Test_test {
     public static Double getOrderBidPrise(String pair, double persProfit, String key, String secret, double trustedLimit) throws InterruptedException, SocketTimeoutException {
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
-        String bid_ar = mod.getPrise(key, secret, pair).get("1").toString();
+        String bid_ar = Modules.getPrise(key, secret, pair).get("1").toString();
         double prsPrfSal = trustedLimit * persProfit / 100;
         double orderPrise = (Double.parseDouble(bid_ar) + prsPrfSal) * 1.004;
         orderPrise = orderPrise - Double.parseDouble(bid_ar);
@@ -62,11 +58,10 @@ public class Test_test {
     }
 
     public static void main(String[] args) throws InterruptedIOException, InterruptedException {
-        Bot_Action btAct = new Bot_Action();
-        String key = btAct.key;
-        String secret = btAct.secret;
-        String pair = btAct.pair;
-        String limit = btAct.limit;
+        String key = Bot_Action.getKey();
+        String secret = Bot_Action.getSecret();
+        String pair = Bot_Action.getPair();
+        String limit = Bot_Action.getLimit();
 
         Modules mod = new Modules();
 
@@ -83,7 +78,7 @@ public class Test_test {
 
         int lifeTime = 0;
         int orderLife = 3600;
-        boolean checkByOrBit = false;
+        boolean checkByOrBit = true;
         if (checkByOrBit == false) {
             System.out.println("Цена ордера на продажу " + orderAsk);
         } else {

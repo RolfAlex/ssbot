@@ -9,8 +9,24 @@ import javax.swing.SwingWorker;
 
 public class Bot_Action {
 
-    String key = "";
-    String secret = "";
-    String pair = "ETH_USD";
-    String limit = "1";
+    static String key = "";
+    static String secret = "";
+    static String pair = "ETH_USD";
+    static String limit = "1";
+
+    public static String getKey() {
+        return key;
+    }
+
+    public static String getSecret() {
+        return secret;
+    }
+
+    public static String getPair() {
+        return pair;
+    }
+
+    public static String getLimit() {
+        return limit;
+    }
 }

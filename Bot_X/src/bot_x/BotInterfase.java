@@ -20,9 +20,18 @@ public class BotInterfase extends javax.swing.JFrame {
     public BotInterfase() {
         initComponents();
     }
-    String key = "";
-    String secret = "";
-    String valent = "ETH_USD";
+
+    // **************Авторизация*****************
+    String key = Bot_Action.getKey();
+    String secret = Bot_Action.getSecret();
+
+    // Валютные пары + лимит количества ордеров для вычисления средней цены 
+    String pair = Bot_Action.getPair();
+    String limit = Bot_Action.getLimit();
+    double balans_eth = 0.04395201;
+    double trustedLimit = 26.5;
+    double persProfit = 0.5;
+    double prise = 0.0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +42,22 @@ public class BotInterfase extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jStrategi = new javax.swing.JFrame();
+        TrustedLimit = new javax.swing.JLabel();
+        jFIeldLimit = new javax.swing.JTextField();
+        Dolar = new javax.swing.JLabel();
+        jAverageOrderPrise = new javax.swing.JCheckBox();
+        jCurentOrderPrise = new javax.swing.JCheckBox();
+        jNumField = new javax.swing.JTextField();
+        Num = new javax.swing.JLabel();
+        OrderLifetime = new javax.swing.JLabel();
+        jOrderLifetime = new javax.swing.JTextField();
+        Sec = new javax.swing.JLabel();
+        jOkeyButton = new javax.swing.JButton();
+        jConfirmSet = new javax.swing.JDialog();
+        jSetting = new javax.swing.JScrollPane();
+        JSetPnel = new javax.swing.JTextPane();
+        jSaveSetting = new javax.swing.JButton();
         LabBalans = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -45,8 +70,154 @@ public class BotInterfase extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jStrategi.setLocationByPlatform(true);
+        jStrategi.setMinimumSize(new java.awt.Dimension(400, 350));
+
+        TrustedLimit.setText("Trusted limit");
+
+        jFIeldLimit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFIeldLimitActionPerformed(evt);
+            }
+        });
+
+        Dolar.setText("$");
+
+        jAverageOrderPrise.setText("Average order prise");
+        jAverageOrderPrise.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAverageOrderPriseActionPerformed(evt);
+            }
+        });
+
+        jCurentOrderPrise.setText("Curent order prise");
+
+        jNumField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNumFieldActionPerformed(evt);
+            }
+        });
+
+        Num.setText("Num:");
+
+        OrderLifetime.setText("Order lifetime");
+
+        jOrderLifetime.setText("3600");
+
+        Sec.setText("sec");
+
+        jOkeyButton.setText("OK");
+        jOkeyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOkeyButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jStrategiLayout = new javax.swing.GroupLayout(jStrategi.getContentPane());
+        jStrategi.getContentPane().setLayout(jStrategiLayout);
+        jStrategiLayout.setHorizontalGroup(
+            jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jStrategiLayout.createSequentialGroup()
+                .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jStrategiLayout.createSequentialGroup()
+                                .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Dolar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TrustedLimit)
+                            .addComponent(OrderLifetime)
+                            .addComponent(Num)
+                            .addComponent(jNumField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCurentOrderPrise)
+                            .addComponent(jAverageOrderPrise)
+                            .addGroup(jStrategiLayout.createSequentialGroup()
+                                .addComponent(jOrderLifetime, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Sec, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(jOkeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(199, Short.MAX_VALUE))
+        );
+        jStrategiLayout.setVerticalGroup(
+            jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jStrategiLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(TrustedLimit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFIeldLimit)
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(Dolar)))
+                .addGap(18, 18, 18)
+                .addComponent(jCurentOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jAverageOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Num, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addComponent(jNumField)
+                .addGap(18, 18, 18)
+                .addComponent(OrderLifetime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jOrderLifetime)
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(Sec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(39, 39, 39)
+                .addComponent(jOkeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addGap(30, 30, 30))
+        );
+
+        jConfirmSet.setLocationByPlatform(true);
+        jConfirmSet.setMaximumSize(new java.awt.Dimension(411, 315));
+        jConfirmSet.setMinimumSize(new java.awt.Dimension(411, 315));
+
+        jSetting.setViewportView(JSetPnel);
+
+        jSaveSetting.setText("Save Settings ");
+        jSaveSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaveSettingActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jConfirmSetLayout = new javax.swing.GroupLayout(jConfirmSet.getContentPane());
+        jConfirmSet.getContentPane().setLayout(jConfirmSetLayout);
+        jConfirmSetLayout.setHorizontalGroup(
+            jConfirmSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jConfirmSetLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSetting)
+                .addContainerGap())
+            .addGroup(jConfirmSetLayout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(jSaveSetting)
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+        jConfirmSetLayout.setVerticalGroup(
+            jConfirmSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jConfirmSetLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSaveSetting)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
         LabBalans.setText("Баланс: ");
 
@@ -79,6 +250,14 @@ public class BotInterfase extends javax.swing.JFrame {
         jMenuItem1.setText("API KEY");
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("Strategi");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -95,7 +274,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(863, Short.MAX_VALUE))
         );
@@ -132,20 +311,53 @@ public class BotInterfase extends javax.swing.JFrame {
         startBalRes();
         jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
-   
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       jStrategi.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void jFIeldLimitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFIeldLimitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFIeldLimitActionPerformed
+
+    private void jAverageOrderPriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAverageOrderPriseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAverageOrderPriseActionPerformed
+
+    private void jNumFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNumFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNumFieldActionPerformed
+
+    private void jOkeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOkeyButtonActionPerformed
+        String info = "Доверреный боту лимит " + jFIeldLimit.getText() + "\n";
+        JSetPnel.setText(info);
+        jConfirmSet.setVisible(true);
+    }//GEN-LAST:event_jOkeyButtonActionPerformed
+
+    private void jSaveSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveSettingActionPerformed
+        jConfirmSet.setVisible(false);
+        jStrategi.setVisible(false);
+
+    }//GEN-LAST:event_jSaveSettingActionPerformed
+
     public void start() {
         Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 while (true) {
-                    jLabel1.setText((String) m.getPrise(key, secret, valent).get("1"));
+                    jLabel1.setText((String) m.getPrise(key, secret, pair).get("1"));
                     Thread.sleep(500);
                 }
             }
         };
         worker.execute();
     }
+
     public void startBal() {
         Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -174,6 +386,7 @@ public class BotInterfase extends javax.swing.JFrame {
         };
         worker.execute();
     }
+    
 
     public static void main(String args[]) {
         Modules mm = new Modules();
@@ -214,15 +427,32 @@ public class BotInterfase extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextArea Balans;
     public static javax.swing.JTextArea BalansReserved;
+    private javax.swing.JLabel Dolar;
+    private javax.swing.JTextPane JSetPnel;
     private javax.swing.JLabel LabBalans;
+    private javax.swing.JLabel Num;
+    private javax.swing.JLabel OrderLifetime;
+    private javax.swing.JLabel Sec;
+    private javax.swing.JLabel TrustedLimit;
+    private javax.swing.JCheckBox jAverageOrderPrise;
     private javax.swing.JButton jButton1;
+    private javax.swing.JDialog jConfirmSet;
+    private javax.swing.JCheckBox jCurentOrderPrise;
+    private javax.swing.JTextField jFIeldLimit;
     public static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JTextField jNumField;
+    private javax.swing.JButton jOkeyButton;
+    private javax.swing.JTextField jOrderLifetime;
+    private javax.swing.JButton jSaveSetting;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jSetting;
+    private javax.swing.JFrame jStrategi;
     // End of variables declaration//GEN-END:variables
 }
