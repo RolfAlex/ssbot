@@ -61,7 +61,7 @@ public class Test_test {
         String key = Bot_Action.getKey();
         String secret = Bot_Action.getSecret();
         String pair = Bot_Action.getPair();
-        String limit = Bot_Action.getLimit();
+        int limit = Bot_Action.getOrderCount();
 
         Modules mod = new Modules();
 
@@ -73,7 +73,7 @@ public class Test_test {
         boolean checkPrise = false; // Если !true! значение цены берется по среднему значению N ордеров на покупку если !false! - по текущей цене на валюту
         prise = getFormatPrise(Double.parseDouble(mod.getPrise(key, secret, pair).get("1").toString()));
 
-        double orderAsk = getFormatPrise(getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise));
+        double orderAsk = getFormatPrise(getOrderAskPrise(pair, String.valueOf(limit), persProfit, trustedLimit, key, secret, checkPrise, prise));
         double orderBid = getFormatPrise(getOrderBidPrise(pair, persProfit, key, secret, trustedLimit));
 
         int lifeTime = 0;
@@ -104,7 +104,7 @@ public class Test_test {
                 System.out.println("***********Срабатывание ордера на ПОКУПКУ*********");
                 System.out.println("Цена ордера на покупку " + orderBid);
                 System.out.println("---Куплено по цене " + prise);
-                orderAsk = getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise);
+                orderAsk = getOrderAskPrise(pair, String.valueOf(limit), persProfit, trustedLimit, key, secret, checkPrise, prise);
                 System.out.println("Цена ордера на продажу " + orderAsk);
                 checkByOrBit = false;
             }
@@ -114,7 +114,7 @@ public class Test_test {
                 System.out.println("смена ордера на продажу " + orderBid);
                 lifeTime = 0;
             } else if (lifeTime > orderLife && checkByOrBit == false) {
-                orderAsk = getOrderAskPrise(pair, limit, persProfit, trustedLimit, key, secret, checkPrise, prise);
+                orderAsk = getOrderAskPrise(pair, String.valueOf(limit), persProfit, trustedLimit, key, secret, checkPrise, prise);
                 System.out.println("смена ордера на покупку " + orderAsk);
                 lifeTime = 0;
             }

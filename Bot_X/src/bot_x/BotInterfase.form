@@ -5,8 +5,11 @@
     <Container class="javax.swing.JFrame" name="jStrategi">
       <Properties>
         <Property name="locationByPlatform" type="boolean" value="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[381, 320]"/>
+        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[400, 350]"/>
+          <Dimension value="[381, 320]"/>
         </Property>
       </Properties>
 
@@ -14,71 +17,87 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jFIeldLimit" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Dolar" min="-2" pref="16" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="TrustedLimit" min="-2" max="-2" attributes="0"/>
-                              <Component id="OrderLifetime" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="Num" min="-2" max="-2" attributes="0"/>
-                              <Component id="jNumField" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="jCurentOrderPrise" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAverageOrderPrise" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jOrderLifetime" min="-2" pref="54" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="Sec" min="-2" pref="33" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jFIeldLimit" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                              <Component id="TrustedLimit" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Dolar" min="-2" pref="16" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
-                          <Component id="jOkeyButton" min="-2" pref="76" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Num" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCurentOrderPrise" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jAverageOrderPrise" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jNumField" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="OrderLifetime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jOrderLifetime" min="-2" pref="54" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Component id="Sec" min="-2" pref="33" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="jErrorMessage" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="199" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                  <Component id="jOkeyButton" min="-2" pref="76" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Component id="TrustedLimit" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="jErrorMessage" min="-2" pref="19" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="TrustedLimit" pref="23" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jFIeldLimit" alignment="3" max="32767" attributes="0"/>
-                      <Group type="102" alignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           <Component id="Dolar" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jFIeldLimit" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Component id="jCurentOrderPrise" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jAverageOrderPrise" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="Num" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="jNumField" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="OrderLifetime" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jOrderLifetime" alignment="3" max="32767" attributes="0"/>
-                      <Group type="102" alignment="3" attributes="0">
-                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                          <Component id="Sec" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="OrderLifetime" min="-2" pref="16" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jOrderLifetime" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Sec" alignment="3" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="Num" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jNumField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jOkeyButton" pref="48" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jOkeyButton" pref="45" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,6 +109,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jFIeldLimit">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFIeldLimitActionPerformed"/>
           </Events>
@@ -101,7 +123,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jAverageOrderPrise">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Average order prise"/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x440;&#x434;&#x435;&#x440;&#x430; &#x43f;&#x43e; &#x441;&#x440;&#x435;&#x434;&#x43d;&#x435;&#x43c;&#x443; &#x437;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x44e; "/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAverageOrderPriseActionPerformed"/>
@@ -109,32 +131,42 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCurentOrderPrise">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Curent order prise"/>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x440;&#x434;&#x435;&#x440;&#x430; &#x43f;&#x43e; &#x442;&#x435;&#x443;&#x448;&#x435;&#x439; &#x446;&#x435;&#x43d;&#x435;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCurentOrderPriseActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jNumField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNumFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Num">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Num:"/>
+            <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x43e;&#x440;&#x434;&#x435;&#x440;&#x43e;&#x432;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="OrderLifetime">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Order lifetime"/>
+            <Property name="text" type="java.lang.String" value="&#x412;&#x440;&#x435;&#x43c;&#x44f; &#x436;&#x438;&#x437;&#x43d;&#x438; &#x43e;&#x440;&#x434;&#x435;&#x440;&#x430;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jOrderLifetime">
           <Properties>
-            <Property name="text" type="java.lang.String" value="3600"/>
+            <Property name="text" type="java.lang.String" value="30"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOrderLifetimeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Sec">
           <Properties>
-            <Property name="text" type="java.lang.String" value="sec"/>
+            <Property name="text" type="java.lang.String" value="&#x43c;&#x438;&#x43d;."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jOkeyButton">
@@ -145,14 +177,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOkeyButtonActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jErrorMessage">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="66" red="cc" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="3"/>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jConfirmSet">
       <Properties>
-        <Property name="locationByPlatform" type="boolean" value="true"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[411, 315]"/>
-        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[411, 315]"/>
         </Property>
@@ -163,13 +201,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSetting" max="32767" attributes="0"/>
+                  <Component id="jSetting" pref="378" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                   <Component id="jSaveSetting" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="153" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -177,10 +215,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSetting" min="-2" pref="238" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jSetting" min="-2" pref="222" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSaveSetting" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -259,18 +297,33 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="LabBalans" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="104" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jStart" alignment="0" pref="120" max="32767" attributes="0"/>
+                  <Component id="jStop" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="863" max="32767" attributes="0"/>
+              <EmptySpace pref="479" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="CanseledOrder" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="OrderList" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jOrderListS" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jOrderListF" alignment="1" max="32767" attributes="0"/>
+                      <Component id="FinishOrderList" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="CanseledOrders" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -278,20 +331,46 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="LabBalans" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="116" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="122" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="117" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="LabBalans" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="116" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="122" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="OrderList" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jOrderListS" min="-2" pref="184" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="FinishOrderList" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jOrderListF" min="-2" pref="131" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="CanseledOrder" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="CanseledOrders" pref="104" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jStart" min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jStop" min="-2" pref="38" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -302,12 +381,12 @@
         <Property name="text" type="java.lang.String" value="&#x411;&#x430;&#x43b;&#x430;&#x43d;&#x441;: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jStart">
       <Properties>
         <Property name="text" type="java.lang.String" value="START"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jStartActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -319,6 +398,9 @@
       </AuxValues>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -354,6 +436,9 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -371,5 +456,78 @@
         </Component>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JScrollPane" name="jOrderListF">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jFinishOrderList">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="FinishOrderList">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x438;&#x441;&#x43e;&#x43a; &#x443;&#x441;&#x43f;&#x435;&#x448;&#x43d;&#x43e; &#x437;&#x430;&#x432;&#x435;&#x440;&#x448;&#x435;&#x43d;&#x43d;&#x44b;&#x445; &#x43e;&#x440;&#x434;&#x435;&#x440;&#x43e;&#x432;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="OrderList">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x438;&#x441;&#x43e;&#x43a; &#x43e;&#x442;&#x43a;&#x440;&#x44b;&#x442;&#x44b;&#x445; &#x43e;&#x440;&#x434;&#x435;&#x440;&#x43e;&#x432;:"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jOrderListS">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jOrderList">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="CanseledOrders">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jCanseledOrders">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="CanseledOrder">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41e;&#x442;&#x43c;&#x435;&#x435;&#x43d;&#x435;&#x43d;&#x43d;&#x44b;&#x435; &#x43e;&#x440;&#x434;&#x435;&#x440;&#x430;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jStop">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="STOP"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jStopActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jStop.setEnabled(false);"/>
+      </AuxValues>
+    </Component>
   </SubComponents>
 </Form>

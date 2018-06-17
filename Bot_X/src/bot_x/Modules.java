@@ -43,6 +43,7 @@ public class Modules {
             }
         }
         hash.put("balans", user_info_bal.trim().replace("\n\n", ""));
+
         String user_info_res = "";
         for (int i = 0; i < reserv.length; i++) {
 
@@ -54,6 +55,27 @@ public class Modules {
         }
         hash.put("reserv", user_info_res.trim().replace("\n\n", ""));
         return hash;
+    }
+
+    public static HashMap getConfBallans(String key, String secret, String val) {
+        HashMap<String, Double> configBal = new HashMap<String, Double>();
+        String[] balans = getUserBalansInfo(key, secret).get("balans").toString().split("\n");
+        double valBal = 0.0;
+        double usdBal = 0.0;
+        for (String balan : balans) {
+            if (balan.contains("USD")) {
+                String[] usd = balan.split(" ");
+                usdBal = Double.parseDouble(usd[1]);
+                configBal.put("usd", usdBal);
+            }
+            if (balan.contains(val)) {
+                String[] valB = balan.split(" ");
+                valBal = Double.parseDouble(valB[1]);
+                configBal.put("val", valBal);
+            }
+
+        }
+        return configBal;
     }
 
 //Cтатистика цен и объемов торгов по валютным парам //Request fail: java.net.SocketTimeoutException: timeout
@@ -141,7 +163,7 @@ public class Modules {
         return dataHash;
     }
 
-    public  HashMap getOrderBook(String key, String secret, String pair, String limit) {
+    public HashMap getOrderBook(String key, String secret, String pair, String limit) {
         Exmo e = new Exmo(key, secret);
         String result = e.Request("order_book", new HashMap<String, String>() {
             {
@@ -171,46 +193,40 @@ public class Modules {
         return statCup;
     }
 
-     public static double getFormatPrise(double prise) {
+    public static double getFormatPrise(double prise) {
         String p = new DecimalFormat("#0.00").format(prise).replace(",", ".");
         double formPrise = Double.parseDouble(p);
         return formPrise;
     }
-     
+
+    
     public static void main(String[] args) throws InterruptedException {
+        
+        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
+        String result = e.Request("user_open_orders", null);
+        result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "");
+        
+        
+        
+        System.out.println(result);
+    
 
-        while (true) {
-            String key = "";
-            String secret = "";
-            String valent = "ETH_USD";
-//            System.out.println(getPrise(key, secret, valent).get("1"));
-//            Thread.sleep(0);
-// System.out.println(getPrise(key, secret, valent).get("2"));
-// System.out.println(getPrise(key, secret, valent).get("3"));
-// System.out.println(getPrise(key, secret, valent).get("4"));
-// System.out.println(getPrise(key, secret, valent).get("5"));
-// System.out.println(getPrise(key, secret, valent).get("6"));
-// System.out.println(getPrise(key, secret, valent).get("7"));
-            System.out.println(getUserBalansInfo(key, secret).get("balans"));
-// System.out.println(getUserBalansInfo(key, secret).get("reserv"));
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
+//        String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+//        String valent = Bot_Action.getPair();
+//        System.out.println(getConfBallans(key, secret, valent).get("usd"));
 
-            Exmo e = new Exmo(key, secret);
-            HashMap<String, String> dataHash = new HashMap<>();
-
-// String kurs = (String) getPrise(key, secret, valent).get("1");
-// double sumCoins = Double.parseDouble(summ) / Double.parseDouble(kurs);
-// double commision = sumCoins * 0.2 / Double.parseDouble(summ);
-// sumCoins = sumCoins - commision - 0.00042027;
-// System.out.println(getValentCount(key, secret, "ETH_USD", "0.03").get("quantity"));
-// System.out.println(getValentCount(key, secret, "ETH_USD", "0.03").get("amount"));
-// System.out.println(getValentCount(key, secret, "ETH_USD", "0.03").get("avg_price"));
-        }
-
-//System.out.println(Double.parseDouble(summ ));
-//System.out.println(Double.parseDouble("514.99"));
-//System.out.println(sumCoins);
-//DecimalFormat df = new DecimalFormat("#.#######");
-//df.setRoundingMode(RoundingMode.CEILING);
-// System.out.println(df.format(sumCoins));
+//            System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("setB"));
     }
 }
