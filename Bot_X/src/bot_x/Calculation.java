@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Calculation {
 
-    public static Double getOrderAskPrise(String pair, int limit, double persProfit, double trustedLimit, String key, String secret, boolean checkPrise, double prise) {
+    public static Double getOrderSellPrise(String pair, int limit, double persProfit, double trustedLimit, String key, String secret, boolean checkPrise, double prise) {
         Modules mod = new Modules();
         double orderAskPrise = 0.0;
         String[] ask_ar = mod.getOrderBook(key, secret, pair, String.valueOf(limit)).get("ask").toString().split(",\\[");
@@ -23,6 +23,7 @@ public class Calculation {
             orderAskPrise = prise;
             averagePrise = orderAskPrise;
         }
+        System.out.println("полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println("prsPrfSal " + prsPrfSal);
         System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
@@ -30,11 +31,14 @@ public class Calculation {
         return orderPrise;
     }
 
-    public static Double getOrderBidPrise(String pair, double persProfit, String key, String secret, double trustedLimit) throws InterruptedException, SocketTimeoutException {
+    public static Double getOrderBuyPrise(String pair, double persProfit, String key, String secret, double trustedLimit) throws InterruptedException, SocketTimeoutException {
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
         String bid_ar = Modules.getPrise(key, secret, pair).get("1").toString();
+        System.out.println("ПОКУПКУ полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
+
         double prsPrfSal = trustedLimit * persProfit / 100;
+        System.out.println("Profit - "+prsPrfSal);
         double orderPrise = (Double.parseDouble(bid_ar) + prsPrfSal) * 1.004;
         orderPrise = orderPrise - Double.parseDouble(bid_ar);
         orderPrise = Double.parseDouble(bid_ar) - orderPrise;
@@ -61,21 +65,21 @@ public class Calculation {
         } else {
             if (trustedLimUsd <= balInUsd) {
                 balState.put("chekVal", "buy");
-            }
-            if (trustedLimUsd <= balInEth) {
+            }else if (trustedLimUsd <= balInEth) {
 
                 balState.put("chekVal", "sell");
             }
+            
         }
         return balState;
     }
 
     public static void main(String[] args) {
-        String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-        String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+        String key = "";
+        String secret = "";
         String valent = Bot_Action.getPair();
         String valentName = "ETH";
-        double trustedLimUsd = 5;
+        double trustedLimUsd = 6;
         Modules mod = new Modules();
         String curPr = mod.getPrise(key, secret, valent).get("1").toString();
         System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get("chekVal").toString());
@@ -87,9 +91,6 @@ public class Calculation {
 //        System.out.println("Val "+configBal.get("val"));
 //        System.out.println("USD "+configBal.get("usd"));
 //        System.out.println(mod.getUserBalansInfo(key, secret).get("balans"));
-    }
 
-    static double getChekTrustBalans(String key, String secret, String valent, double trustLimit, double prise) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

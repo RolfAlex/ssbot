@@ -9,20 +9,30 @@ import javax.swing.SwingWorker;
 
 public class Bot_Action {
 
-    static String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-    static String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+    static String key = "";
+    static String secret = "";
 
     static String pair = "ETH_USD";
     static String valent = "ETH";
 
     static double trustLimit = 0.0;
+    static double persProfit = 0.0;
 
     static double orderLifeTime = 0;
     static int orderCount = 0;
     static boolean averageOrCurent = false;
 
+     public static void setPrsProfit(String PrsProf) {
+        persProfit = Double.parseDouble(PrsProf);
+
+    }
+
+    public static double getPrsProfit() {
+        return persProfit;
+    }
+    
     public static void setorderLifeTime(String LifeTime) {
-        orderLifeTime = Double.parseDouble(LifeTime);
+        orderLifeTime = Double.parseDouble(LifeTime.replace(",", "."));
 
     }
 
@@ -70,4 +80,6 @@ public class Bot_Action {
     public static String getValent() {
         return valent;
     }
+
+    
 }

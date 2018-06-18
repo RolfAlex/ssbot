@@ -21,18 +21,18 @@ public class BotInterfase extends javax.swing.JFrame {
     /**
      * Creates new form BotInterfase
      */
+    static String key = Bot_Action.getKey();
+    static String secret = Bot_Action.getSecret();
+
     public BotInterfase() {
         initComponents();
     }
 
     // **************Авторизация*****************
-    String key = Bot_Action.getKey();
-    String secret = Bot_Action.getSecret();
-
     // Валютные пары + лимит количества ордеров для вычисления средней цены 
     String pair = Bot_Action.getPair();
     String valent = Bot_Action.getValent();
-    
+
     double prise = 0.0;
 
     //Флаг кнопок Start/Stop
@@ -60,6 +60,9 @@ public class BotInterfase extends javax.swing.JFrame {
         Sec = new javax.swing.JLabel();
         jOkeyButton = new javax.swing.JButton();
         jErrorMessage = new javax.swing.JLabel();
+        jProfit = new javax.swing.JTextField();
+        Profit = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jConfirmSet = new javax.swing.JDialog();
         jSetting = new javax.swing.JScrollPane();
         JSetPnel = new javax.swing.JTextPane();
@@ -94,7 +97,6 @@ public class BotInterfase extends javax.swing.JFrame {
 
         TrustedLimit.setText("Trusted limit");
 
-        jFIeldLimit.setText("1");
         jFIeldLimit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFIeldLimitActionPerformed(evt);
@@ -129,7 +131,6 @@ public class BotInterfase extends javax.swing.JFrame {
 
         OrderLifetime.setText("Время жизни ордера");
 
-        jOrderLifetime.setText("30");
         jOrderLifetime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOrderLifetimeActionPerformed(evt);
@@ -148,19 +149,38 @@ public class BotInterfase extends javax.swing.JFrame {
         jErrorMessage.setBackground(new java.awt.Color(204, 102, 0));
         jErrorMessage.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
 
+        jProfit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jProfitActionPerformed(evt);
+            }
+        });
+
+        Profit.setText("Profit: ");
+
+        jLabel4.setText("%");
+
         javax.swing.GroupLayout jStrategiLayout = new javax.swing.GroupLayout(jStrategi.getContentPane());
         jStrategi.getContentPane().setLayout(jStrategiLayout);
         jStrategiLayout.setHorizontalGroup(
             jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jStrategiLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(jOkeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jStrategiLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jStrategiLayout.createSequentialGroup()
-                        .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TrustedLimit, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Dolar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(168, 168, 168)
+                        .addComponent(jProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addComponent(TrustedLimit)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jStrategiLayout.createSequentialGroup()
                         .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,28 +196,32 @@ public class BotInterfase extends javax.swing.JFrame {
                                     .addGroup(jStrategiLayout.createSequentialGroup()
                                         .addComponent(jOrderLifetime, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Sec, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(Sec, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Profit)))
                             .addComponent(jErrorMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(27, 27, 27))))
-            .addGroup(jStrategiLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(jOkeyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jStrategiLayout.setVerticalGroup(
             jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jStrategiLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(TrustedLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jStrategiLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                        .addGap(22, 22, 22)
+                        .addComponent(jErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(TrustedLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jStrategiLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Profit)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Dolar))
-                    .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                    .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jProfit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jCurentOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jAverageOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,7 +238,7 @@ public class BotInterfase extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(jNumField)))
                 .addGap(18, 18, 18)
-                .addComponent(jOkeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(jOkeyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addGap(26, 26, 26))
         );
 
@@ -349,19 +373,19 @@ public class BotInterfase extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jStart, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(jStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CanseledOrder)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(OrderList)
-                            .addGap(204, 204, 204))
-                        .addComponent(jOrderListS, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jOrderListF, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(FinishOrderList)
-                        .addComponent(CanseledOrders)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CanseledOrder)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(FinishOrderList)
+                                .addComponent(CanseledOrders)
+                                .addComponent(jOrderListF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)))
+                        .addComponent(jOrderListS, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OrderList))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -413,8 +437,7 @@ public class BotInterfase extends javax.swing.JFrame {
 
     private void jStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStartActionPerformed
         start();
-        startBal();
-        startBalRes();
+
         jStart.setEnabled(false);
         jStop.setEnabled(true);
     }//GEN-LAST:event_jStartActionPerformed
@@ -452,11 +475,13 @@ public class BotInterfase extends javax.swing.JFrame {
                 info = info.concat("Бот будет выставлять ордера на продажу\nпо среднему значению \"" + jNumField.getText() + "\" ордеров на ринку\n");
                 Bot_Action.setAverageOrCurent(true);
             }
-            
-            info = info.concat("Время жизни ордера составит " + jOrderLifetime.getText() + " мин.");
+
+            info = info.concat("Время жизни ордера составит " + jOrderLifetime.getText() + " мин." + "\nПрибыль за зделку составит " + jProfit.getText() + "%\n");
+
             JSetPnel.setText(info);
             jConfirmSet.setVisible(true);
             Bot_Action.setTrustLimit(jFIeldLimit.getText());
+            Bot_Action.setPrsProfit(jProfit.getText());
             Bot_Action.setOrderCount(jNumField.getText());
             Bot_Action.setorderLifeTime(jOrderLifetime.getText());
         } catch (NumberFormatException e) {
@@ -464,7 +489,7 @@ public class BotInterfase extends javax.swing.JFrame {
                 jErrorMessage.setText("Поля не заполнены или заполнены не корректно!");
                 Thread.sleep(1000);
                 jErrorMessage.setText("");
-                
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(BotInterfase.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -496,121 +521,159 @@ public class BotInterfase extends javax.swing.JFrame {
     private void jOrderLifetimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOrderLifetimeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jOrderLifetimeActionPerformed
-    
+
+    private void jProfitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProfitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jProfitActionPerformed
+
     public void start() {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(key, secret, pair).get("1").toString()), "#0.0000");
                 while (stop) {
-//                    jLabel1.setText((String) Modules.getPrise(key, secret, pair).get("1"));
-
                     double trustedLimitUSD = Double.parseDouble((String) Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), Bot_Action.getTrustLimit(), String.valueOf(prise)).get("trustUsd"));
                     double trustedLimitETH = Double.parseDouble((String) Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), Bot_Action.getTrustLimit(), String.valueOf(prise)).get("trustEth"));
-                    double persProfit = 0.5; // НУЖНО ОБРАБОТАТЬ!!!!!!!!!!!!!!!111
-                    System.out.println("trustedLimitUSD " + trustedLimitUSD);
-                    System.out.println("trustedLimitETH " + trustedLimitETH);
-                    
-                    boolean checkPrise = false; // Если !true! значение цены берется по среднему значению N ордеров на покупку если !false! - по текущей цене на валюту
-
-                    double orderAsk = Calculation.getFormatPrise(Calculation.getOrderAskPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitETH, key, secret, Bot_Action.getAverageOrCurent(), prise), "#0.000000");
-                    double orderBid = Calculation.getFormatPrise(Calculation.getOrderBidPrise(pair, persProfit, key, secret, trustedLimitUSD), "#0.00");
-
-//                    
-//                    System.out.println( Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), trustedLimit, pair).get("chekVal").toString());
-//                    System.out.println("1");
-                    int lifeTime = 0;
-                    double orderLifeTime = Bot_Action.getorderLifeTime();
-//                       System.out.println(Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), trustedLimUsd, curPr).get("chekVal").toString());
-//                       System.out.println(String.valueOf(prise));
+                    double persProfit = Bot_Action.getPrsProfit(); // НУЖНО ОБРАБОТАТЬ!!!!!!!!!!!!!!!111
                     String chekByOrSell = Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), trustedLimitUSD, String.valueOf(prise)).get("chekVal").toString();
+                    double orderLifeTime = Bot_Action.getorderLifeTime();
+                    int lifeTime = 0; //Счетчик жизни
+                    double orderPrise = 0.0;
                     boolean checkByOrBit = true;
-                    System.out.println("2");
+
+                    System.out.println("------------------------");
+                    System.out.println("profit " + persProfit);
+                    System.out.println("usd " + trustedLimitUSD);
+                    System.out.println("eth " + trustedLimitETH);
+                    System.out.println("By оr Sell " + chekByOrSell);
+                    System.out.println("LifeTime " + orderLifeTime);
+                    System.out.println("------------------------");
+
+//                    Проверка какой ордер создать вначале
                     if (chekByOrSell.equalsIgnoreCase("sell")) {
-                        checkByOrBit = false;
-                        jOrderList.append("Цена ордера на продажу " + orderAsk);
-                        System.out.println("Цена ордера на продажу " + orderAsk);
-                    } else if (chekByOrSell.equalsIgnoreCase("buy")) {
+                        //Здесь нужно создать ордер на продажу
+                        orderPrise = Calculation.getFormatPrise(Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise), "#0.00");
+                        Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
+
+                        jOrderList.setText("Cоздание ордера на ПРОДАЖУ \nЦена ордера на продажу " + orderPrise);
+                        System.out.println("Cоздание ордера на ПРОДАЖУ Цена ордера на продажу " + orderPrise);
                         checkByOrBit = true;
-                        jOrderList.append("Цена ордера на продажу " + orderAsk);
-                        System.out.println("Цена ордера на покупку " + orderBid);
+                    } else if (chekByOrSell.equalsIgnoreCase("buy")) {
+                        //Здесь нужно создать ордер на покупку
+                        orderPrise = Calculation.getFormatPrise(Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD), "#0.00");
+                        Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
+
+                        jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+                        System.out.println("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+                        checkByOrBit = false;
                     }
+
                     while (stop) {
-                        
+
                         prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(key, secret, pair).get("1").toString()), "#0.00000");
                         jLabel1.setText(String.valueOf(prise));
                         Thread.sleep(500);
+
                         //ПРОДАЖА
-                        if (orderAsk <= prise && checkByOrBit == false) {
-                            jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + orderAsk + "\n");
+                     if (orderPrise <= prise && checkByOrBit == true/*&& Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("{}")*/) {
+
+                            jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + orderPrise + "\n");
                             System.out.println("**Срабатывание ордера на ПРОДАЖУ**");
-                            System.out.println("Цена ордера на продажу " + orderAsk);
-                            System.out.println("Продано по цене " + prise);
-                            orderBid = Calculation.getOrderBidPrise(pair, persProfit, key, secret, trustedLimitUSD);
-                            jOrderList.setText("Цена ордера на покупку " + orderBid + "\n");
-                            System.out.println("Цена ордера на покупку " + orderBid);
-                            checkByOrBit = true;
+                            System.out.println("Цена ордера на продажу " + orderPrise + " Продано по цене " + prise);
+
+                            //Здесь нужно создать ордер на покупку
+                            orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD);
+                            Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
+
+                            jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+                            checkByOrBit = false;
+
+                            System.out.println("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+
+                            Thread.sleep(500);
+
                         }
                         //ПОКУПКА
-                        if (orderBid >= prise && checkByOrBit == true) {
-                            jFinishOrderList.append("**Срабатывание ордера на ПОКУПКУ**\nЦена ордера на покупку " + orderBid + "\n");
+                        if (orderPrise >= prise && checkByOrBit == false/* && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("{}")*/) {
+
+                            jFinishOrderList.append("**Срабатывание ордера на ПОКУПКУ**\nЦена ордера на покупку " + orderPrise + "\n");
                             System.out.println("***********Срабатывание ордера на ПОКУПКУ*********");
-                            System.out.println("Цена ордера на покупку " + orderBid);
-                            System.out.println("---Куплено по цене " + prise);
-                            orderAsk = Calculation.getOrderAskPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitETH, key, secret, Bot_Action.getAverageOrCurent(), prise);
-                            jOrderList.setText("Цена ордера на продажу " + orderAsk + "\n");
-                            System.out.println("Цена ордера на продажу " + orderAsk);
-                            checkByOrBit = false;
+                            System.out.println("Цена ордера на покупку " + orderPrise + " --Куплено по цене " + prise);
+
+                            //Здесь нужно создать ордер на продажу
+                            orderPrise = Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise);
+                            Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
+
+                            jOrderList.setText("Cоздание ордера на ПРОДАЖУ \nЦена ордера на продажу " + orderPrise);
+                            checkByOrBit = true;
+
+                            System.out.println("Cоздание ордера на ПРОДАЖУ Цена ордера на продажу " + orderPrise);
+                            Thread.sleep(500);
+
                         }
+
                         //ЖИЗНЬ ОРДЕРА
-                        if (lifeTime > orderLifeTime && checkByOrBit == true) {
-                            orderBid = Calculation.getOrderBidPrise(pair, persProfit, key, secret, trustedLimitUSD);
-                            jCanseledOrders.append("смена ордера на покупку " + orderBid + "\n");
-                            jOrderList.setText("Цена ордера на покупку " + orderBid + "\n");
-                            System.out.println("смена ордера на покупку " + orderBid);
+                        if (lifeTime > orderLifeTime && checkByOrBit == false) {
+                            jCanseledOrders.append("Отмена старого ордера на покупку " + "\n" + (String) Modules.getUserOpenOrders(key, secret).get("order") + "\n");
+
+                            //Здесь нужно отменить ордер по id
+                            Modules.orderIdCancel(key, secret, (String) Modules.getUserOpenOrders(key, secret).get("orderId"));
+                            //Здесь нужно создать ордер на покупку
+                            orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD);
+                            Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
+
+                            jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+                            checkByOrBit = false;
+
+                            System.out.println("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
+
+                            Thread.sleep(500);
                             lifeTime = 0;
-                        } else if (lifeTime > orderLifeTime && checkByOrBit == false) {
-                            orderAsk = Calculation.getOrderAskPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitETH, key, secret, checkPrise, prise);
-                            jCanseledOrders.append("смена ордера на продажу " + orderAsk + "\n");
-                            jOrderList.setText("Цена ордера на продажу " + orderAsk + "\n");
-                            System.out.println("смена ордера на продажу " + orderAsk);
+
+                        } else if (lifeTime > orderLifeTime && checkByOrBit == true) {
+                            jCanseledOrders.append("Отмена старого ордера на продажу " + "\n" + (String) Modules.getUserOpenOrders(key, secret).get("order") + "\n");
+
+                            //Здесь нужно отменить ордер по id
+                            Modules.orderIdCancel(key, secret, (String) Modules.getUserOpenOrders(key, secret).get("orderId"));
+                            //Здесь нужно создать ордер на продажу
+                            orderPrise = Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise);
+                            Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
+
+                            jOrderList.setText("Cоздание ордера на ПРОДАЖУ \nЦена ордера на продажу " + orderPrise);
+                            checkByOrBit = true;
+
+                            System.out.println("Cоздание ордера на ПРОДАЖУ Цена ордера на продажу " + orderPrise);
+
+                            Thread.sleep(500);
                             lifeTime = 0;
                         }
+
                         lifeTime++;
                     }
                 }
+
                 stop = true;
                 return null;
             }
         };
         worker.execute();
     }
-    
-    public void startBal() {
+
+    public static void startBal() {
         Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                int u = 0;
                 while (true) {
                     Balans.setText((String) m.getUserBalansInfo(key, secret).get("balans"));
-                    do {
-                        
-                        if (Balans.getText().split("\n").length <= 0) {
-                            Balans.setText((String) m.getUserBalansInfo(key, secret).get("balans"));
-                            System.out.println("ХУЙНЯ!!!!");
-                            u = 1;
-                        }
-                        
-                    } while (u <= 0);
                     Thread.sleep(10000);
                 }
             }
         };
         worker.execute();
     }
-    
-    public void startBalRes() {
+
+    public static void startBalRes() {
         Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -618,15 +681,13 @@ public class BotInterfase extends javax.swing.JFrame {
                 while (true) {
                     BalansReserved.setText((String) m.getUserBalansInfo(key, secret).get("reserv"));
                     Thread.sleep(11000);
-                    
                 }
             }
         };
         worker.execute();
     }
-    
+
     public static void main(String args[]) {
-        Modules mm = new Modules();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -639,7 +700,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BotInterfase.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -654,11 +715,16 @@ public class BotInterfase extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                BotInterfase.startBal();
+                startBalRes();
                 new BotInterfase().setVisible(true);
+                Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
+                jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("order"));
+
 //                jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));            
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -673,28 +739,31 @@ public class BotInterfase extends javax.swing.JFrame {
     private javax.swing.JLabel Num;
     private javax.swing.JLabel OrderLifetime;
     private javax.swing.JLabel OrderList;
+    private javax.swing.JLabel Profit;
     private javax.swing.JLabel Sec;
     private javax.swing.JLabel TrustedLimit;
-    private javax.swing.JCheckBox jAverageOrderPrise;
+    private static javax.swing.JCheckBox jAverageOrderPrise;
     private javax.swing.JTextArea jCanseledOrders;
     private javax.swing.JDialog jConfirmSet;
-    private javax.swing.JCheckBox jCurentOrderPrise;
+    private static javax.swing.JCheckBox jCurentOrderPrise;
     private javax.swing.JLabel jErrorMessage;
-    private javax.swing.JTextField jFIeldLimit;
+    private static javax.swing.JTextField jFIeldLimit;
     private javax.swing.JTextArea jFinishOrderList;
     public static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JTextField jNumField;
+    private static javax.swing.JTextField jNumField;
     private javax.swing.JButton jOkeyButton;
-    private javax.swing.JTextField jOrderLifetime;
-    private javax.swing.JTextArea jOrderList;
+    private static javax.swing.JTextField jOrderLifetime;
+    private static javax.swing.JTextArea jOrderList;
     private javax.swing.JScrollPane jOrderListF;
     private javax.swing.JScrollPane jOrderListS;
+    private static javax.swing.JTextField jProfit;
     private javax.swing.JButton jSaveSetting;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

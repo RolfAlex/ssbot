@@ -193,40 +193,49 @@ public class Modules {
         return statCup;
     }
 
-    public static double getFormatPrise(double prise) {
-        String p = new DecimalFormat("#0.00").format(prise).replace(",", ".");
-        double formPrise = Double.parseDouble(p);
-        return formPrise;
+    public static HashMap getUserOpenOrders(String key, String secret) {
+        Exmo e = new Exmo(key, secret);
+        String result = e.Request("user_open_orders", null);
+        HashMap<String, String> hashAr = new HashMap<String, String>();
+        if (!result.equalsIgnoreCase("{}")) {
+            result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");
+            String[] ar = result.split(",");
+            String ee = "";
+            for (int i = 0; i < ar.length; i++) {
+                hashAr.put("orderId", ar[0].substring(9));
+                ee = ee.concat(ar[i] + " ");
+            }
+            hashAr.put("order", ee);
+        }
+        hashAr.put("order", "Нету открытых ордеров");
+        hashAr.put("orderId", "0");
+        return hashAr;
+
     }
 
-    
     public static void main(String[] args) throws InterruptedException {
-        
-        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
-        String result = e.Request("user_open_orders", null);
-        result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "");
-        
-        
-        
-        System.out.println(result);
-    
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
-//        String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
+        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
+        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
+
+//        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
+//        String result = e.Request("user_open_orders", null);
+//        result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");
+//        HashMap<String, String> hashAr = new HashMap<String, String>();
+//        String[] ar = result.split(",");
+//        String ee = "";
+//        for (int i = 0; i < ar.length; i++) {
+//            hashAr.put("orderId", ar[0].substring(9));
+//            ee = ee.concat(ar[i] + " ");
+//        }
+//        System.out.println(ee);
+//        System.out.println(hashAr.get("orderId"));
+//
+//        System.out.println(result);
+//        String key = "";
+//        String secret = "";
 //        String valent = Bot_Action.getPair();
 //        System.out.println(getConfBallans(key, secret, valent).get("usd"));
-
 //            System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("setB"));
     }
 }
