@@ -7,6 +7,7 @@ package bot_x;
 
 import static bot_x.Calculation.getChekTrustBalans;
 import java.awt.event.ActionEvent;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JEditorPane;
@@ -86,13 +87,15 @@ public class BotInterfase extends javax.swing.JFrame {
         jCanseledOrders = new javax.swing.JTextArea();
         CanseledOrder = new javax.swing.JLabel();
         jStop = new javax.swing.JButton();
+        jDelOrder = new javax.swing.JButton();
+        jOrderId = new javax.swing.JTextField();
+        id = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         jStrategi.setLocationByPlatform(true);
-        jStrategi.setMaximumSize(new java.awt.Dimension(381, 320));
         jStrategi.setMinimumSize(new java.awt.Dimension(381, 320));
 
         TrustedLimit.setText("Trusted limit");
@@ -171,18 +174,6 @@ public class BotInterfase extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jStrategiLayout.createSequentialGroup()
-                        .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Dolar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168)
-                        .addComponent(jProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jStrategiLayout.createSequentialGroup()
-                        .addComponent(TrustedLimit)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jStrategiLayout.createSequentialGroup()
                         .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jStrategiLayout.createSequentialGroup()
                                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,23 +187,36 @@ public class BotInterfase extends javax.swing.JFrame {
                                     .addGroup(jStrategiLayout.createSequentialGroup()
                                         .addComponent(jOrderLifetime, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Sec, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(Profit)))
+                                        .addComponent(Sec, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jErrorMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))))
+                        .addGap(27, 27, 27))
+                    .addGroup(jStrategiLayout.createSequentialGroup()
+                        .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jStrategiLayout.createSequentialGroup()
+                                .addComponent(jFIeldLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Dolar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TrustedLimit))
+                        .addGap(168, 168, 168)
+                        .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jStrategiLayout.createSequentialGroup()
+                                .addComponent(Profit)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jStrategiLayout.createSequentialGroup()
+                                .addComponent(jProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jStrategiLayout.setVerticalGroup(
             jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jStrategiLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jStrategiLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(TrustedLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jStrategiLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Profit)))
+                    .addComponent(TrustedLimit, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(Profit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -221,7 +225,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     .addGroup(jStrategiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jProfit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addComponent(jCurentOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jAverageOrderPrise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -298,6 +302,7 @@ public class BotInterfase extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        Balans.setEditable(false);
         Balans.setColumns(20);
         Balans.setRows(5);
         Balans.setMaximumSize(new java.awt.Dimension(83, 130));
@@ -311,6 +316,7 @@ public class BotInterfase extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        BalansReserved.setEditable(false);
         BalansReserved.setColumns(20);
         BalansReserved.setRows(5);
         jScrollPane1.setViewportView(BalansReserved);
@@ -329,6 +335,7 @@ public class BotInterfase extends javax.swing.JFrame {
         jOrderList.setRows(5);
         jOrderListS.setViewportView(jOrderList);
 
+        jCanseledOrders.setEditable(false);
         jCanseledOrders.setColumns(20);
         jCanseledOrders.setRows(5);
         CanseledOrders.setViewportView(jCanseledOrders);
@@ -342,6 +349,15 @@ public class BotInterfase extends javax.swing.JFrame {
                 jStopActionPerformed(evt);
             }
         });
+
+        jDelOrder.setText("Del order");
+        jDelOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDelOrderActionPerformed(evt);
+            }
+        });
+
+        id.setText("id:");
 
         jMenu1.setText("Настройки");
 
@@ -375,57 +391,65 @@ public class BotInterfase extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CanseledOrder)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(FinishOrderList)
-                                .addComponent(CanseledOrders)
-                                .addComponent(jOrderListF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)))
-                        .addComponent(jOrderListS, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(OrderList))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jOrderListF)
+                            .addComponent(FinishOrderList, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CanseledOrders, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                            .addComponent(jOrderListS)
+                            .addComponent(CanseledOrder, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(OrderList))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jDelOrder)
+                        .addGap(19, 19, 19)
+                        .addComponent(id)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabBalans)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LabBalans)
+                            .addComponent(OrderList))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jOrderListS)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(OrderList)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jOrderListS, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(FinishOrderList)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jOrderListF, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jOrderListF)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(CanseledOrder))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(CanseledOrder)
-                        .addGap(5, 5, 5)
-                        .addComponent(CanseledOrders, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jStop, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
+                    .addComponent(CanseledOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDelOrder)
+                    .addComponent(jOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jStop, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -436,8 +460,9 @@ public class BotInterfase extends javax.swing.JFrame {
 //    jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));
 
     private void jStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStartActionPerformed
-        start();
-
+//        start();
+        startBal();
+        startBalRes();
         jStart.setEnabled(false);
         jStop.setEnabled(true);
     }//GEN-LAST:event_jStartActionPerformed
@@ -526,6 +551,28 @@ public class BotInterfase extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jProfitActionPerformed
 
+    private void jDelOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDelOrderActionPerformed
+
+        if (!jOrderId.getText().equalsIgnoreCase("")) {
+            Modules.orderIdCancel(key, secret, jOrderId.getText());
+            try {
+                Thread.sleep(500);
+                if (Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("Нету открытых ордеров")) {
+                    jCanseledOrders.append("Ордер отменен вручную id:" + jOrderId.getText());
+                } else {
+                    jOrderId.setText("error");
+
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(BotInterfase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            jOrderId.setText("нету id");
+        }
+        BalansReserved.setText(Modules.getUserBalansInfo(key, secret).get("reserv").toString());
+        Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
+    }//GEN-LAST:event_jDelOrderActionPerformed
+
     public void start() {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -553,7 +600,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     if (chekByOrSell.equalsIgnoreCase("sell")) {
                         //Здесь нужно создать ордер на продажу
                         orderPrise = Calculation.getFormatPrise(Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise), "#0.00");
-                       String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
+                        String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
                         System.out.println(e);
                         jOrderList.setText("Cоздание ордера на ПРОДАЖУ \nЦена ордера на продажу " + orderPrise);
                         System.out.println("Cоздание ордера на ПРОДАЖУ Цена ордера на продажу " + orderPrise);
@@ -561,7 +608,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     } else if (chekByOrSell.equalsIgnoreCase("buy")) {
                         //Здесь нужно создать ордер на покупку
                         orderPrise = Calculation.getFormatPrise(Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD), "#0.00");
-                       String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
+                        String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
                         System.out.println(e);
                         jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
                         System.out.println("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
@@ -576,7 +623,7 @@ public class BotInterfase extends javax.swing.JFrame {
                         Thread.sleep(500);
 //                        System.out.println(Modules.getUserOpenOrders(key, secret).get("order"));
                         //ПРОДАЖА
-                     if (/*orderPrise <= prise &&*/ checkByOrBit == true && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("Нету открытых ордеров")) {
+                        if (/*orderPrise <= prise &&*/checkByOrBit == true && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("Нету открытых ордеров")) {
 
                             jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + orderPrise + "\n");
                             System.out.println("**Срабатывание ордера на ПРОДАЖУ**");
@@ -585,7 +632,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             //Здесь нужно создать ордер на покупку
                             orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD);
                             Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
-                           
+
                             jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
                             checkByOrBit = false;
 
@@ -661,12 +708,11 @@ public class BotInterfase extends javax.swing.JFrame {
     }
 
     public static void startBal() {
-        Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 while (true) {
-                    Balans.setText((String) m.getUserBalansInfo(key, secret).get("balans"));
+                    Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
                     Thread.sleep(10000);
                 }
             }
@@ -675,12 +721,11 @@ public class BotInterfase extends javax.swing.JFrame {
     }
 
     public static void startBalRes() {
-        Modules m = new Modules();
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 while (true) {
-                    BalansReserved.setText((String) m.getUserBalansInfo(key, secret).get("reserv"));
+                    BalansReserved.setText((String) Modules.getUserBalansInfo(key, secret).get("reserv"));
                     Thread.sleep(11000);
                 }
             }
@@ -720,6 +765,7 @@ public class BotInterfase extends javax.swing.JFrame {
                 startBalRes();
                 new BotInterfase().setVisible(true);
                 Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
+                BalansReserved.setText((String) Modules.getUserBalansInfo(key, secret).get("reserv"));
                 jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("order"));
 
 //                jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));            
@@ -743,10 +789,12 @@ public class BotInterfase extends javax.swing.JFrame {
     private javax.swing.JLabel Profit;
     private javax.swing.JLabel Sec;
     private javax.swing.JLabel TrustedLimit;
+    private javax.swing.JLabel id;
     private static javax.swing.JCheckBox jAverageOrderPrise;
     private javax.swing.JTextArea jCanseledOrders;
     private javax.swing.JDialog jConfirmSet;
     private static javax.swing.JCheckBox jCurentOrderPrise;
+    private javax.swing.JButton jDelOrder;
     private javax.swing.JLabel jErrorMessage;
     private static javax.swing.JTextField jFIeldLimit;
     private javax.swing.JTextArea jFinishOrderList;
@@ -760,6 +808,7 @@ public class BotInterfase extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private static javax.swing.JTextField jNumField;
     private javax.swing.JButton jOkeyButton;
+    private javax.swing.JTextField jOrderId;
     private static javax.swing.JTextField jOrderLifetime;
     private static javax.swing.JTextArea jOrderList;
     private javax.swing.JScrollPane jOrderListF;
