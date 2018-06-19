@@ -197,6 +197,7 @@ public class Modules {
     public static HashMap getUserOpenOrders(String key, String secret) {
         Exmo e = new Exmo(key, secret);
         String result = e.Request("user_open_orders", null);
+//        System.out.println(result);
         HashMap<String, String> hashAr = new HashMap<String, String>();
         if (!result.equalsIgnoreCase("{}")) {
             result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");
@@ -221,7 +222,7 @@ public class Modules {
         System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
 
         System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
-        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("balans"));
+        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
 //        String result = e.Request("user_open_orders", null);
 //        result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");

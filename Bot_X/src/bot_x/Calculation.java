@@ -65,7 +65,7 @@ public class Calculation {
         } else {
             if (trustedLimUsd <= balInUsd) {
                 balState.put("chekVal", "buy");
-            }else if (trustedLimUsd <= balInEth) {
+            }else if (trustBalEth <= balInEth) {
 
                 balState.put("chekVal", "sell");
             }

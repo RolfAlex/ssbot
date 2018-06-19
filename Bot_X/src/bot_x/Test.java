@@ -15,7 +15,18 @@ import java.util.Stack;
 public class Test {
 
     public static void main(String[] args) {
-        String key = "";
+     
+        
+        if(true){
+            System.out.println("1");
+        }else if(true){
+            System.out.println("2");
+        }
+    }
+}
+
+        
+        /*String key = "";
         String secret = "";
         String valent = "ETH_USD";
         Exmo e = new Exmo(key, secret);
@@ -98,3 +109,4 @@ public class Test {
 //        System.out.println(statCup.get("bid_top"));
     }
 }
+*/
