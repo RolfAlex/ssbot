@@ -206,9 +206,10 @@ public class Modules {
                 ee = ee.concat(ar[i] + " ");
             }
             hashAr.put("order", ee);
-        }
+        }else{
         hashAr.put("order", "Нету открытых ордеров");
         hashAr.put("orderId", "0");
+        }
         return hashAr;
 
     }

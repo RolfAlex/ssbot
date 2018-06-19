@@ -548,21 +548,21 @@ public class BotInterfase extends javax.swing.JFrame {
                     System.out.println("By оr Sell " + chekByOrSell);
                     System.out.println("LifeTime " + orderLifeTime);
                     System.out.println("------------------------");
-
+                    double quantiti = trustedLimitUSD / prise;
 //                    Проверка какой ордер создать вначале
                     if (chekByOrSell.equalsIgnoreCase("sell")) {
                         //Здесь нужно создать ордер на продажу
                         orderPrise = Calculation.getFormatPrise(Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise), "#0.00");
-                        Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
-
+                       String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
+                        System.out.println(e);
                         jOrderList.setText("Cоздание ордера на ПРОДАЖУ \nЦена ордера на продажу " + orderPrise);
                         System.out.println("Cоздание ордера на ПРОДАЖУ Цена ордера на продажу " + orderPrise);
                         checkByOrBit = true;
                     } else if (chekByOrSell.equalsIgnoreCase("buy")) {
                         //Здесь нужно создать ордер на покупку
                         orderPrise = Calculation.getFormatPrise(Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD), "#0.00");
-                        Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
-
+                       String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
+                        System.out.println(e);
                         jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
                         System.out.println("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
                         checkByOrBit = false;
@@ -571,11 +571,12 @@ public class BotInterfase extends javax.swing.JFrame {
                     while (stop) {
 
                         prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(key, secret, pair).get("1").toString()), "#0.00000");
+                        quantiti = trustedLimitUSD / prise;
                         jLabel1.setText(String.valueOf(prise));
                         Thread.sleep(500);
-
+//                        System.out.println(Modules.getUserOpenOrders(key, secret).get("order"));
                         //ПРОДАЖА
-                     if (orderPrise <= prise && checkByOrBit == true/*&& Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("{}")*/) {
+                     if (/*orderPrise <= prise &&*/ checkByOrBit == true && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("Нету открытых ордеров")) {
 
                             jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + orderPrise + "\n");
                             System.out.println("**Срабатывание ордера на ПРОДАЖУ**");
@@ -584,7 +585,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             //Здесь нужно создать ордер на покупку
                             orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD);
                             Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitUSD), String.valueOf(orderPrise), "buy");
-
+                           
                             jOrderList.setText("Cоздание ордера на ПОКУПКУ цена ордера на покупку " + orderPrise);
                             checkByOrBit = false;
 
@@ -594,7 +595,7 @@ public class BotInterfase extends javax.swing.JFrame {
 
                         }
                         //ПОКУПКА
-                        if (orderPrise >= prise && checkByOrBit == false/* && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("{}")*/) {
+                        if (/*orderPrise >= prise && */checkByOrBit == false && Modules.getUserOpenOrders(key, secret).get("order").toString().equalsIgnoreCase("Нету открытых ордеров")) {
 
                             jFinishOrderList.append("**Срабатывание ордера на ПОКУПКУ**\nЦена ордера на покупку " + orderPrise + "\n");
                             System.out.println("***********Срабатывание ордера на ПОКУПКУ*********");

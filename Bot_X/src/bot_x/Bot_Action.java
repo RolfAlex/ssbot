@@ -9,8 +9,8 @@ import javax.swing.SwingWorker;
 
 public class Bot_Action {
 
-    static String key = "";
-    static String secret = "";
+    static String key = "K-91fcc80c5c4263e7c61635629a3c42eaf331ce88";
+    static String secret = "S-8b1012889c95bb34db05cf85889f3086c21108f0";
 
     static String pair = "ETH_USD";
     static String valent = "ETH";

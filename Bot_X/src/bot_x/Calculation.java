@@ -75,8 +75,8 @@ public class Calculation {
     }
 
     public static void main(String[] args) {
-        String key = "";
-        String secret = "";
+        String key = Bot_Action.key;
+        String secret = Bot_Action.secret;
         String valent = Bot_Action.getPair();
         String valentName = "ETH";
         double trustedLimUsd = 6;

@@ -5,9 +5,6 @@
     <Container class="javax.swing.JFrame" name="jStrategi">
       <Properties>
         <Property name="locationByPlatform" type="boolean" value="true"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[381, 320]"/>
-        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[381, 320]"/>
         </Property>
