@@ -658,6 +658,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             
                             checkByOrBit = false;
                             lifeTime = 0;
+                            getUserOpenOrders = Modules.getUserOpenOrders(key, secret).get("order").toString();
                         }
 
 //         ********     ПОКУПКА         ********
@@ -679,7 +680,6 @@ public class BotInterfase extends javax.swing.JFrame {
                             System.out.println("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + ch);
                             checkByOrBit = true;
                             lifeTime = 0;
-                            
                         } //ЖИЗНЬ ОРДЕРА
 
                         if (lifeTime > orderLifeTime && checkByOrBit == false) {
