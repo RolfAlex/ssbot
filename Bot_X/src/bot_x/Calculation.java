@@ -31,7 +31,49 @@ public class Calculation {
         return orderPrise;
     }
 
-    public static Double getOrderBuyPrise(String pair, double persProfit, String key, String secret, double trustedLimit) throws InterruptedException, SocketTimeoutException {
+    public static Double getOrderBuyPrise(String pair, double persProfit, String key, String secret, double trustedLimit, double prise) throws InterruptedException, SocketTimeoutException {
+        Modules mod = new Modules();
+        //Вычисление средней цены на << ПОКУПКУ >> ******************************
+//        System.out.println("ПОКУПКУ полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
+
+        double prsPrfSal = trustedLimit * persProfit / 100;
+        System.out.println("Profit - "+prsPrfSal);
+        double orderPrise = (prise + prsPrfSal) * 1.004;
+        orderPrise = orderPrise - prise;
+        orderPrise = prise - orderPrise;
+        return orderPrise;
+
+    }
+    
+    
+    
+    
+    
+    public static Double getOldOrderSellPrise(String pair, int limit, double persProfit, double trustedLimit, String key, String secret, boolean checkPrise, double oldPrise) {
+        Modules mod = new Modules();
+        double orderAskPrise = 0.0;
+        String[] ask_ar = mod.getOrderBook(key, secret, pair, String.valueOf(limit)).get("ask").toString().split(",\\[");
+        for (String ask_ar1 : ask_ar) {
+            String[] ar_1 = ask_ar1.split(",");
+            orderAskPrise += Double.parseDouble(ar_1[0]);
+        }
+        double averagePrise = 0.0;
+        if (checkPrise == true) {
+            orderAskPrise = orderAskPrise;
+            averagePrise = orderAskPrise / limit;
+        } else if (checkPrise == false) {
+            orderAskPrise = oldPrise;
+            averagePrise = orderAskPrise;
+        }
+//        System.out.println("полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
+        double prsPrfSal = trustedLimit * persProfit / 100;
+        System.out.println("prsPrfSal " + prsPrfSal);
+        System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
+        double orderPrise = (averagePrise + prsPrfSal) * 1.004;
+        return orderPrise;
+    }
+
+    public static Double getOldOrderBuyPrise(String pair, double persProfit, String key, String secret, double trustedLimit, double oldPrise) throws InterruptedException, SocketTimeoutException {
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
         String bid_ar = Modules.getPrise(key, secret, pair).get("1").toString();
@@ -39,12 +81,32 @@ public class Calculation {
 
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println("Profit - "+prsPrfSal);
-        double orderPrise = (Double.parseDouble(bid_ar) + prsPrfSal) * 1.004;
-        orderPrise = orderPrise - Double.parseDouble(bid_ar);
-        orderPrise = Double.parseDouble(bid_ar) - orderPrise;
+        double orderPrise = (oldPrise + prsPrfSal) * 1.004;
+        orderPrise = orderPrise -oldPrise;
+        orderPrise = oldPrise - orderPrise;
         return orderPrise;
 
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public static double getFormatPrise(double prise, String length) {
         String p = new DecimalFormat(length).format(prise).replace(",", ".");
@@ -75,7 +137,7 @@ public class Calculation {
         return balState;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, SocketTimeoutException {
         String key = Bot_Action.key;
         String secret = Bot_Action.secret;
         String valent = Bot_Action.getPair();
@@ -89,7 +151,9 @@ public class Calculation {
 //        System.out.println(getChekTrustBalans(key, secret, valent, valentName, trustedLimUsd, curPr).get("trustEth"));
 //        System.out.println(getChekTrustBalans(key, secret, valent, valentName, trustedLimUsd, curPr).get("trustUsd"));
 //        System.out.println(m.getConfBallans(key, secret, "ETH").get("val"));
-        System.out.println(mod.getConfBallans(key, secret, "ETH").get("usd"));
+        System.out.println(getOldOrderBuyPrise(Bot_Action.pair,0.5, key, secret, 6.0, 500.0));
+        System.out.println("500");
+        System.out.println(getOldOrderSellPrise(Bot_Action.pair, 6, 0.5, 6.0, key, secret, false, 500));
 //        
 //        System.out.println("Val "+configBal.get("val"));
 //        System.out.println("USD "+configBal.get("usd"));
