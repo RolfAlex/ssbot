@@ -239,7 +239,7 @@ public class Modules {
 //        String key = "";
 //        String secret = "";
 //        String valent = Bot_Action.getPair();
-//        System.out.println(getConfBallans(key, secret, valent).get("usd"));
+        System.out.println(getConfBallans(Bot_Action.key, Bot_Action.secret, Bot_Action.valent).get("usd"));
 //            System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("setB"));
     }
 }
