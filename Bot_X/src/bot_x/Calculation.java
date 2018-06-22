@@ -23,7 +23,7 @@ public class Calculation {
             orderAskPrise = prise;
             averagePrise = orderAskPrise;
         }
-        System.out.println("полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
+//        System.out.println("полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println("prsPrfSal " + prsPrfSal);
         System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
@@ -35,7 +35,7 @@ public class Calculation {
         Modules mod = new Modules();
         //Вычисление средней цены на << ПОКУПКУ >> ******************************
         String bid_ar = Modules.getPrise(key, secret, pair).get("1").toString();
-        System.out.println("ПОКУПКУ полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
+//        System.out.println("ПОКУПКУ полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
 
         double prsPrfSal = trustedLimit * persProfit / 100;
         System.out.println("Profit - "+prsPrfSal);
@@ -60,6 +60,7 @@ public class Calculation {
         balState.put("trustEth", String.valueOf(getFormatPrise(trustBalEth, "#0.00000000")));
         balState.put("trustUsd", String.valueOf(trustedLimUsd));
         double balInUsd = (double) Modules.getConfBallans(key, secret, valentName).get("usd");
+        
         if (trustedLimUsd > balInUsd && trustedLimUsd > balInEth) {
             balState.put("chekVal", "noMoney");
         } else {
@@ -81,12 +82,14 @@ public class Calculation {
         String valentName = "ETH";
         double trustedLimUsd = 6;
         Modules mod = new Modules();
-        String curPr = mod.getPrise(key, secret, valent).get("1").toString();
-        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get("chekVal").toString());
+//        String curPr = mod.getPrise(key, secret, valent).get("1").toString();
+//        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get("chekVal").toString());
+//        
+//        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get(""));
 //        System.out.println(getChekTrustBalans(key, secret, valent, valentName, trustedLimUsd, curPr).get("trustEth"));
 //        System.out.println(getChekTrustBalans(key, secret, valent, valentName, trustedLimUsd, curPr).get("trustUsd"));
 //        System.out.println(m.getConfBallans(key, secret, "ETH").get("val"));
-//        System.out.println(mod.getConfBallans(key, secret, "ETH").get("usd"));
+        System.out.println(mod.getConfBallans(key, secret, "ETH").get("usd"));
 //        
 //        System.out.println("Val "+configBal.get("val"));
 //        System.out.println("USD "+configBal.get("usd"));

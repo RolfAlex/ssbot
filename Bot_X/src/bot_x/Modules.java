@@ -217,12 +217,11 @@ public class Modules {
     }
 
     public static void main(String[] args) throws InterruptedException {
-
-        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
-        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
-
-        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
-        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
+       //        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
+//        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
+//
+//        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
+//        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
 //        String result = e.Request("user_open_orders", null);
 //        result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");

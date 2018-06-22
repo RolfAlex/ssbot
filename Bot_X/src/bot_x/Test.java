@@ -15,13 +15,21 @@ import java.util.Stack;
 public class Test {
 
     public static void main(String[] args) {
-     
-        
-        if(true){
-            System.out.println("1");
-        }else if(true){
-            System.out.println("2");
-        }
+     String r = " fwr=result: true, rfwr rw grg wrwg ";
+        int i = 0;
+        do{
+            System.out.println("frwf");
+            System.out.println(r.indexOf("true"));
+        }while (r.indexOf("true") == -1);
+        System.out.println("frfddddddddddddddd");
+//    while (!r.equalsIgnoreCase("5")){
+//        i++;
+//            System.out.println(i);
+//             r = Integer.toString(i);
+//            System.out.println(r);
+//    }
+    
+    
     }
 }
 
