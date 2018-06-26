@@ -1,17 +1,11 @@
 package bot_x;
 
-import java.io.InterruptedIOException;
-import java.math.RoundingMode;
-import java.net.SocketTimeoutException;
-import java.text.DecimalFormat;
+
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Stack;
 
-import java.util.TimeZone;
-import javax.xml.transform.Source;
 
 public class Modules {
 
@@ -25,7 +19,7 @@ public class Modules {
 //Возвращает баланс пользователя / баланс пользователя в ордерах 
     public static HashMap getUserBalansInfo(String key, String secret) {
         Exmo e = new Exmo(key, secret);
-        HashMap<String, String> hash = new HashMap<String, String>();
+        HashMap<String, String> hash = new HashMap<>();
         String result = e.Request("user_info", null);
         result = result.trim().replace("{", "");
         result = result.trim().replace("}", "");
@@ -59,7 +53,7 @@ public class Modules {
     }
 
     public static HashMap getConfBallans(String key, String secret, String val) {
-        HashMap<String, Double> configBal = new HashMap<String, Double>();
+        HashMap<String, Double> configBal = new HashMap<>();
         String[] balans = getUserBalansInfo(key, secret).get("balans").toString().split("\n");
         double valBal = 0.0;
         double usdBal = 0.0;
@@ -81,7 +75,7 @@ public class Modules {
 
 //Cтатистика цен и объемов торгов по валютным парам //Request fail: java.net.SocketTimeoutException: timeout
     public static HashMap getPrise(String key, String secret, String valent) {
-        HashMap<String, String> data = new HashMap<String, String>();
+        HashMap<String, String> data = new HashMap<>();
         Exmo e = new Exmo(key, secret);
         String result = e.Request("ticker", null);
         result = result.trim().replace("{", "");
@@ -197,30 +191,34 @@ public class Modules {
     public static HashMap getUserOpenOrders(String key, String secret) {
         Exmo e = new Exmo(key, secret);
         String result = e.Request("user_open_orders", null);
-//        System.out.println(result);
         HashMap<String, String> hashAr = new HashMap<String, String>();
         if (!result.equalsIgnoreCase("{}")) {
             result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");
             String[] ar = result.split(",");
             String ee = "";
+            int num = 1;
             for (int i = 0; i < ar.length; i++) {
                 hashAr.put("orderId", ar[0].substring(9));
                 ee = ee.concat(ar[i] + " ");
+                if (!(ar[i].indexOf("order_id") == -1)) {
+                    hashAr.put(Integer.toString(num), ar[i].substring(9));
+                    hashAr.put("num", Integer.toString(num));
+                    num++;
+                }
             }
             hashAr.put("order", ee);
-        }else{
-        hashAr.put("order", "Нету открытых ордеров");
-        hashAr.put("orderId", "0");
+        } else {
+            hashAr.put("order", "Нету открытых ордеров");
+            hashAr.put("orderId", "0");
         }
         return hashAr;
-
     }
 
     public static void main(String[] args) throws InterruptedException {
-       //        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
+//               System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
 //        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
-//
-//        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
+//        System.out.println(orderIdCancel(Bot_Action.key, Bot_Action.secret, "940413108"));
+        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
 //        String result = e.Request("user_open_orders", null);

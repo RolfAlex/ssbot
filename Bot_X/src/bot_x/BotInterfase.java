@@ -25,7 +25,7 @@ public class BotInterfase extends javax.swing.JFrame {
      */
     static String key = Bot_Action.getKey();
     static String secret = Bot_Action.getSecret();
-    
+
     public BotInterfase() {
         initComponents();
     }
@@ -34,7 +34,7 @@ public class BotInterfase extends javax.swing.JFrame {
     // Валютные пары + лимит количества ордеров для вычисления средней цены 
     String pair = Bot_Action.getPair();
     String valent = Bot_Action.getValent();
-    
+
     double prise = 0.0;
 
     //Флаг кнопок Start/Stop
@@ -501,9 +501,9 @@ public class BotInterfase extends javax.swing.JFrame {
                 info = info.concat("Бот будет выставлять ордера на продажу\nпо среднему значению \"" + jNumField.getText() + "\" ордеров на ринку\n");
                 Bot_Action.setAverageOrCurent(true);
             }
-            
+
             info = info.concat("Время жизни ордера составит " + jOrderLifetime.getText() + " мин." + "\nПрибыль за зделку составит " + jProfit.getText() + "%\n");
-            
+
             JSetPnel.setText(info);
             jConfirmSet.setVisible(true);
             Bot_Action.setTrustLimit(jFIeldLimit.getText());
@@ -515,7 +515,7 @@ public class BotInterfase extends javax.swing.JFrame {
                 jErrorMessage.setText("Поля не заполнены или заполнены не корректно!");
                 Thread.sleep(1000);
                 jErrorMessage.setText("");
-                
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(BotInterfase.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -553,7 +553,7 @@ public class BotInterfase extends javax.swing.JFrame {
     }//GEN-LAST:event_jProfitActionPerformed
 
     private void jDelOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDelOrderActionPerformed
-        
+
         if (!jOrderId.getText().equalsIgnoreCase("")) {
             Modules.orderIdCancel(key, secret, jOrderId.getText());
             try {
@@ -562,7 +562,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     jCanseledOrders.append("Ордер отменен вручную id:" + jOrderId.getText());
                 } else {
                     jOrderId.setText("error");
-                    
+
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(BotInterfase.class.getName()).log(Level.SEVERE, null, ex);
@@ -573,7 +573,7 @@ public class BotInterfase extends javax.swing.JFrame {
         BalansReserved.setText(Modules.getUserBalansInfo(key, secret).get("reserv").toString());
         Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
     }//GEN-LAST:event_jDelOrderActionPerformed
-    
+
     public void start() {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -591,7 +591,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     double oldOrderPrise = 0.0;
                     double quantiti = trustedLimitUSD / prise;
                     String chekByOrSell = Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), trustedLimitUSD, String.valueOf(prise)).get("chekVal").toString();
-                    
+
                     System.out.println("------------------------");
                     System.out.println("oldOrderPrise " + oldOrderPrise);
                     System.out.println("profit " + persProfit);
@@ -601,7 +601,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     System.out.println("LifeTime " + orderLifeTime);
                     System.out.println("quantiti " + quantiti);
                     System.out.println("------------------------");
-                    
+
 //                    Проверка какой ордер создать вначале
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
                     if (chekByOrSell.equalsIgnoreCase("sell")) {
@@ -642,7 +642,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             String ch = "";
                             orderPrise = Calculation.getOldOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD, oldOrderPrise);
                             quantiti = Double.parseDouble(Modules.getConfBallans(key, secret, valent).get("usd").toString()) / orderPrise;
-                            
+
                             jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + oldOrderPrise + "\n");
                             System.out.println("**Срабатывание ордера на ПРОДАЖУ**" + "\n" + "Цена ордера на продажу " + oldOrderPrise);
                             //Здесь нужно создать ордер на покупку
@@ -655,7 +655,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             Thread.sleep(500);
                             jOrderList.append("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
                             System.out.println("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-                            
+
                             checkByOrBit = false;
                             lifeTime = 0;
                             getUserOpenOrders = Modules.getUserOpenOrders(key, secret).get("order").toString();
@@ -665,7 +665,7 @@ public class BotInterfase extends javax.swing.JFrame {
                         if (checkByOrBit == false && getUserOpenOrders.equalsIgnoreCase("Нету открытых ордеров")) {
                             String ch = "";
                             orderPrise = Calculation.getOldOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), oldOrderPrise);
-                            
+
                             jFinishOrderList.append("**Срабатывание ордера на ПОКУПКУ**\nЦена ордера на покупку " + oldOrderPrise + "\n");
                             System.out.println("**Срабатывание ордера на ПОКУПКУ**" + "\n" + "Цена ордера на покупку " + oldOrderPrise);
                             //Здесь нужно создать ордер на продажу
@@ -688,6 +688,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             //Здесь нужно отменить ордер по id
                             do {
                                 ch = Modules.orderIdCancel(key, secret, (String) Modules.getUserOpenOrders(key, secret).get("orderId"));
+                                Thread.sleep(500);
                                 System.out.println("застрял на отмене " + ch);
                             } while (ch.indexOf("true") == -1);
                             orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD, prise);
@@ -696,6 +697,7 @@ public class BotInterfase extends javax.swing.JFrame {
                             //Здесь нужно создать ордер на покупку
                             do {
                                 ch = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
+                                Thread.sleep(500);
                                 System.out.println("Cоздание ордера на покупку " + ch);
                             } while (ch.indexOf("true") == -1);
                             oldOrderPrise = orderPrise;
@@ -704,10 +706,10 @@ public class BotInterfase extends javax.swing.JFrame {
                             Thread.sleep(500);
                             jOrderList.append("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
                             System.out.println("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-                            
+
                             checkByOrBit = false;
                             lifeTime = 0;
-                            
+
                         } else if (lifeTime > orderLifeTime && checkByOrBit == true) {
                             String ch = "";
                             jCanseledOrders.append("Отмена старого ордера на продажу " + "\n" + getUserOpenOrders + "\n");
@@ -731,11 +733,11 @@ public class BotInterfase extends javax.swing.JFrame {
                             checkByOrBit = true;
                             lifeTime = 0;
                         }
-                        
+
                         lifeTime++;
                     }
                 }
-                
+
                 stop = true;
                 return null;
             }
@@ -756,7 +758,7 @@ public class BotInterfase extends javax.swing.JFrame {
         };
         worker.execute();
     }
-    
+
     public static void startBalRes() {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -769,7 +771,7 @@ public class BotInterfase extends javax.swing.JFrame {
         };
         worker.execute();
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -783,7 +785,7 @@ public class BotInterfase extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BotInterfase.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -808,7 +810,7 @@ public class BotInterfase extends javax.swing.JFrame {
 //                jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));            
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

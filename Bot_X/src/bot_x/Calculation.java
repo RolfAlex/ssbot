@@ -95,11 +95,11 @@ public class Calculation {
         Modules m = new Modules();
         double balInEth = Double.parseDouble(curPrise) * (double) m.getConfBallans(key, secret, valentName).get("val");
         double balInUsd = (double) Modules.getConfBallans(key, secret, valentName).get("usd");
-        System.out.println("balInEth "+balInEth);
-        System.out.println("balInUsd "+balInUsd);
+        System.out.println("balInEth " + balInEth);
+        System.out.println("balInUsd " + balInUsd);
         double trustBalEth = trustedLimUsd / Double.parseDouble(curPrise);
-        System.out.println("trustBalEth "+trustBalEth);
-        
+        System.out.println("trustBalEth " + trustBalEth);
+
         balState.put("trustEth", String.valueOf(getFormatPrise(trustBalEth, "#0.00000000")));
         balState.put("trustUsd", String.valueOf(trustedLimUsd));
         if (trustedLimUsd > balInUsd && trustedLimUsd > balInEth) {
@@ -120,9 +120,32 @@ public class Calculation {
         String valent = Bot_Action.getPair();
         String valentName = "ETH";
         double trustedLimUsd = 6;
-        Modules mod = new Modules();
-        String curPr = mod.getPrise(key, secret, valent).get("1").toString();
-        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get("chekVal").toString());
+
+        int countOrders = Integer.parseInt(Modules.getUserOpenOrders(key, secret).get("num").toString());
+        
+        double oldPise = 458.71;
+        while(true){
+            Thread.sleep(500);
+            Algoritm [] a = new Algoritm[1];
+              System.out.println(a[1]);
+////        System.out.println(countOrders);
+//        double prise = getFormatPrise(Double.valueOf(Modules.getPrise(key, secret, valent).get("1").toString()), "#0.00");
+////        System.out.println(prise);
+//        if (prise > (oldPise + 1)) {
+//            System.out.println("Цена идет вверх");
+//        } else if (prise < oldPise-1) {
+//            System.out.println("Цена идет вниз");
+//
+//        }
+        }
+//        String e = Modules.getUserOpenOrders(key, secret).get("order").toString();
+//        String d = Modules.getUserOpenOrders(key, secret).get("num").toString();
+//        String dd = Modules.getUserOpenOrders(key, secret).get("3").toString();
+//        System.out.println(e);
+//        System.out.println(d);
+//        System.out.println(dd);
+//        String curPr = mod.getPrise(key, secret, valent).get("1").toString();
+//        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get("chekVal").toString());
 //        
 //        System.out.println(getChekTrustBalans(key, secret, valentName, trustedLimUsd, curPr).get(""));
 //        System.out.println(getChekTrustBalans(key, secret, valent, valentName, trustedLimUsd, curPr).get("trustEth"));
@@ -135,6 +158,5 @@ public class Calculation {
 //        System.out.println("Val "+configBal.get("val"));
 //        System.out.println("USD "+configBal.get("usd"));
 //        System.out.println(mod.getUserBalansInfo(key, secret).get("balans"));
-
     }
 }

@@ -5,6 +5,7 @@
  */
 package bot_x;
 
+import static bot_x.Calculation.getFormatPrise;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -15,26 +16,30 @@ import java.util.Stack;
 public class Test {
 
     public static void main(String[] args) {
-     String r = " fwr=result: true, rfwr rw grg wrwg ";
-        int i = 0;
-        do{
-            System.out.println("frwf");
-            System.out.println(r.indexOf("true"));
-        }while (r.indexOf("true") == -1);
-        System.out.println("frfddddddddddddddd");
+//        Algoritm a = new Algoritm();
+//        }
+//    class  R extends Algoritma{
+        
+    }
+    
+//     String r = " fwr=result: true, rfwr rw grg wrwg ";
+//        int i = 0;
+//        do{
+//            System.out.println("frwf");
+//            System.out.println(r.indexOf("true"));
+//        }while (r.indexOf("true") == -1);
+//        System.out.println("frfddddddddddddddd");
 //    while (!r.equalsIgnoreCase("5")){
 //        i++;
 //            System.out.println(i);
 //             r = Integer.toString(i);
 //            System.out.println(r);
 //    }
-    
-    
-    }
-}
 
+}
         
-        /*String key = "";
+
+                /*String key = "";
         String secret = "";
         String valent = "ETH_USD";
         Exmo e = new Exmo(key, secret);
@@ -117,4 +122,4 @@ public class Test {
 //        System.out.println(statCup.get("bid_top"));
     }
 }
-*/
+                 */
