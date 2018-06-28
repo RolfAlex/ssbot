@@ -11,8 +11,8 @@ import static bot_x.Calculation.getFormatPrise;
  *
  * @author Alex
  */
- class PriseUp extends Algoritm{
-    @Override
+ class PriseUp{
+    
      public void getSituation(){
          System.out.println("up");
         String key = Bot_Action.key;

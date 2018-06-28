@@ -1,11 +1,10 @@
 package bot_x;
 
-
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Stack;
-
 
 public class Modules {
 
@@ -198,27 +197,27 @@ public class Modules {
             String ee = "";
             int num = 1;
             for (int i = 0; i < ar.length; i++) {
-                hashAr.put("orderId", ar[0].substring(9));
-                ee = ee.concat(ar[i] + " ");
                 if (!(ar[i].indexOf("order_id") == -1)) {
                     hashAr.put(Integer.toString(num), ar[i].substring(9));
                     hashAr.put("num", Integer.toString(num));
                     num++;
                 }
+                if (!(ar[i].indexOf("order_id") == -1) || !(ar[i].indexOf("type") == -1) || !(ar[i].indexOf("quantity") == -1) || !(ar[i].indexOf("price") == -1)) {
+                    ee = ee.concat(ar[i] + " ");
+                }
             }
             hashAr.put("order", ee);
         } else {
             hashAr.put("order", "Нету открытых ордеров");
-            hashAr.put("orderId", "0");
         }
         return hashAr;
     }
 
     public static void main(String[] args) throws InterruptedException {
-//               System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
+        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
 //        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
 //        System.out.println(orderIdCancel(Bot_Action.key, Bot_Action.secret, "940413108"));
-        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
+//        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));
 //        Exmo e = new Exmo(Bot_Action.key, Bot_Action.secret);
 //        String result = e.Request("user_open_orders", null);
@@ -237,7 +236,7 @@ public class Modules {
 //        String key = "";
 //        String secret = "";
 //        String valent = Bot_Action.getPair();
-        System.out.println(getConfBallans(Bot_Action.key, Bot_Action.secret, Bot_Action.valent).get("usd"));
+//        System.out.println(getConfBallans(Bot_Action.key, Bot_Action.secret, Bot_Action.valent).get("usd"));
 //            System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("setB"));
     }
 }

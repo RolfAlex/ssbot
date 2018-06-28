@@ -126,8 +126,6 @@ public class Calculation {
         double oldPise = 458.71;
         while(true){
             Thread.sleep(500);
-            Algoritm [] a = new Algoritm[1];
-              System.out.println(a[1]);
 ////        System.out.println(countOrders);
 //        double prise = getFormatPrise(Double.valueOf(Modules.getPrise(key, secret, valent).get("1").toString()), "#0.00");
 ////        System.out.println(prise);
