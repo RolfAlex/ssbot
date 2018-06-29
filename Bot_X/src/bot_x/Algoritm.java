@@ -6,6 +6,7 @@
 package bot_x;
 
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -40,6 +41,26 @@ public class Algoritm {
         return info;
     }
 
+    public static HashMap getDelleteOrder(String key, String secret, String newOrd, String oldOrd) {
+        HashMap<String, String> tmp = new HashMap<>();
+        String[] newOrdd = newOrd.replace(" ", "").split("order");
+        String[] oldOrdd = oldOrd.replace(" ", "").split("order");
+        int it = 0;
+        for (String oldOrdd1 : oldOrdd) {
+            for (String newOrdd1 : newOrdd) {
+                if (oldOrdd1.equalsIgnoreCase(newOrdd1)) {
+                    it++;
+                }
+            }
+            System.out.println(it);
+            if (it == 0) {
+                tmp.put("delOrd", oldOrdd1);
+            }
+            it = 0;
+        }
+        return tmp;
+    }
+
     public static void main(String[] args) throws InterruptedException, SocketTimeoutException {
         System.out.println("st");
         double prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(Bot_Action.key, Bot_Action.secret, Bot_Action.pair).get("1").toString()), "#0.0000");
@@ -65,21 +86,34 @@ public class Algoritm {
         System.out.println("------------------------");
 
         System.out.println(priseMonitor(439.6, prise));
-        HashMap<String, String> userOrders = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret);
-
+        System.out.println(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
         int oldNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
         int newNumOrders = 0;
-        while (true) {
-            userOrders = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret);
-            newNumOrders = Integer.valueOf(userOrders.get("num").toString());
-            if (newNumOrders < oldNumOrders) {
-                System.out.println("сработал ордер");
+        String newOrd = "";
+        String oldOrd = "";
 
-            }
-            Thread.sleep(1000);
+        String orderInfo = "_id:961327732type:sellquantity:0.01price:8000";
+        System.out.println(orderInfo.substring(orderInfo.indexOf("price"), orderInfo.length()));
 
-        }
+//        System.out.println(orderInfo.indexOf("type"));
+        System.out.println(orderInfo.substring(orderInfo.indexOf("type"), orderInfo.indexOf("type") + 8));
 
+//        while (true) {
+//            newNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
+//            newOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
+//            System.out.println(newNumOrders + "  =   " + oldNumOrders);
+//            if (newNumOrders < oldNumOrders) {
+//
+//                System.out.println("сработал ордер");
+//                
+//                System.out.println(getDelleteOrder(Bot_Action.key, Bot_Action.secret, newOrd, oldOrd).get("delOrd"));
+//                oldNumOrders = newNumOrders;
+//            }
+//            oldOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
+//            oldNumOrders = newNumOrders;
+//            Thread.sleep(1000);
+//
+//        }
 //                    Проверка какой ордер создать вначале
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //        if (chekByOrSell.equalsIgnoreCase("sell")) {
