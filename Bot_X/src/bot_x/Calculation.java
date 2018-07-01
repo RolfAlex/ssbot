@@ -48,13 +48,13 @@ public class Calculation {
     public static Double getOldOrderSellPrise(String pair, int limit, double persProfit, double trustedLimit, String key, String secret, boolean checkPrise, double oldPrise) {
         Modules mod = new Modules();
         double orderAskPrise = 0.0;
+        double averagePrise = 0.0;
+        if (checkPrise == true) {
         String[] ask_ar = mod.getOrderBook(key, secret, pair, String.valueOf(limit)).get("ask").toString().split(",\\[");
         for (String ask_ar1 : ask_ar) {
             String[] ar_1 = ask_ar1.split(",");
             orderAskPrise += Double.parseDouble(ar_1[0]);
         }
-        double averagePrise = 0.0;
-        if (checkPrise == true) {
             orderAskPrise = orderAskPrise;
             averagePrise = orderAskPrise / limit;
         } else if (checkPrise == false) {
@@ -62,7 +62,8 @@ public class Calculation {
             averagePrise = orderAskPrise;
         }
 //        System.out.println("полученое значение профита - " + persProfit + " Доверренный лимит - " + trustedLimit);
-        double prsPrfSal = trustedLimit * persProfit / 100;
+//        System.out.println(trustedLimit+"==========="+persProfit);
+        double prsPrfSal = (trustedLimit * persProfit) / 100;
         System.out.println("prsPrfSal " + prsPrfSal);
         System.out.println(averagePrise + " + " + prsPrfSal + " * " + 1.004);
         double orderPrise = (averagePrise + prsPrfSal) * 1.004;
@@ -92,14 +93,14 @@ public class Calculation {
 
     public static HashMap getChekTrustBalans(String key, String secret, String valentName, double trustedLimUsd, String curPrise) {
         HashMap<String, String> balState = new HashMap<String, String>();
+        trustedLimUsd = getBallansePart(trustedLimUsd);
         Modules m = new Modules();
         double balInEth = Double.parseDouble(curPrise) * (double) m.getConfBallans(key, secret, valentName).get("val");
         double balInUsd = (double) Modules.getConfBallans(key, secret, valentName).get("usd");
-        System.out.println("balInEth " + balInEth);
-        System.out.println("balInUsd " + balInUsd);
+//        System.out.println("balInEth " + balInEth);
+//        System.out.println("balInUsd " + balInUsd);
         double trustBalEth = trustedLimUsd / Double.parseDouble(curPrise);
         System.out.println("trustBalEth " + trustBalEth);
-
         balState.put("trustEth", String.valueOf(getFormatPrise(trustBalEth, "#0.00000000")));
         balState.put("trustUsd", String.valueOf(trustedLimUsd));
         if (trustedLimUsd > balInUsd && trustedLimUsd > balInEth) {
@@ -114,6 +115,12 @@ public class Calculation {
         return balState;
     }
 
+    public static double getBallansePart(double trustedLimUsd) {
+        double part;
+        part = trustedLimUsd / 3;
+        return part;
+    }
+
     public static void main(String[] args) throws InterruptedException, SocketTimeoutException {
         String key = Bot_Action.key;
         String secret = Bot_Action.secret;
@@ -122,10 +129,12 @@ public class Calculation {
         double trustedLimUsd = 6;
 
         int countOrders = Integer.parseInt(Modules.getUserOpenOrders(key, secret).get("num").toString());
-        
+
         double oldPise = 458.71;
-        while(true){
-            Thread.sleep(500);
+//        System.out.println(getChekTrustBalans(key, secret, valentName, getBallansePart(6), "468").get("trustEth"));
+
+//        while(true){
+//            Thread.sleep(500);
 ////        System.out.println(countOrders);
 //        double prise = getFormatPrise(Double.valueOf(Modules.getPrise(key, secret, valent).get("1").toString()), "#0.00");
 ////        System.out.println(prise);
@@ -135,7 +144,7 @@ public class Calculation {
 //            System.out.println("Цена идет вниз");
 //
 //        }
-        }
+//        }
 //        String e = Modules.getUserOpenOrders(key, secret).get("order").toString();
 //        String d = Modules.getUserOpenOrders(key, secret).get("num").toString();
 //        String dd = Modules.getUserOpenOrders(key, secret).get("3").toString();

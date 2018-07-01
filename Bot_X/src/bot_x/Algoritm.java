@@ -8,6 +8,8 @@ package bot_x;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,37 +47,31 @@ public class Algoritm {
         HashMap<String, String> tmp = new HashMap<>();
         String tm = "";
         if (newOrd.length() > 5 && oldOrd.length() > 5) {
-//            System.out.println(newOrd.length() + "----" + oldOrd.length());
-            String[] newOrdd = newOrd.replace(" ", "").split("order");
-            String[] oldOrdd = oldOrd.replace(" ", "").split("order");
+            String[] newOrdd = newOrd.replace("order", "rim order").split("rim ");
+            String[] oldOrdd = oldOrd.replace("order", "rim order").split("rim ");
             System.out.println(Arrays.toString(newOrdd));
-            System.out.println(Arrays.toString(oldOrdd));
             int it = 0;
             for (int i = 0; i < oldOrdd.length; i++) {
                 for (int j = 0; j < newOrdd.length; j++) {
-                    System.out.println(oldOrdd[i] + "----" + newOrdd[j]);
                     if (oldOrdd[i].equalsIgnoreCase(newOrdd[j])) {
 
                         it++;
                     }
                 }
-//                System.out.println(it);
                 if (it == 0) {
                     tm = oldOrdd[i];
-                    System.out.println(oldOrdd[i] + "ttttttttttt");
-//                    System.out.println(tm + "2");
-                    oldOrdd[i] = oldOrdd[i].substring(oldOrdd[i].indexOf("type"), oldOrdd[i].indexOf("type") + 8);
-                    oldOrdd[i] = oldOrdd[i].concat(" " + tm.substring(tm.indexOf("price"), tm.length()));
+//                    oldOrdd[i] = oldOrdd[i].substring(oldOrdd[i].indexOf("type"), oldOrdd[i].indexOf("type") + 8);
+//                    oldOrdd[i] = oldOrdd[i].concat(" " + tm.substring(tm.indexOf("price"), tm.length()));
+                    oldOrdd[i] = oldOrdd[i].substring(oldOrdd[i].indexOf("order_id:"), oldOrdd[i].indexOf("order_id:") + 18);
                     tmp.put("delOrd", oldOrdd[i]);
                 }
                 it = 0;
             }
         } else {
             tm = oldOrd;
-//            System.out.println(oldOrd + "1");
-//            System.out.println(oldOrd + "2");
-            oldOrd = oldOrd.substring(oldOrd.indexOf("type"), oldOrd.indexOf("type") + 8);
-            oldOrd = oldOrd.concat(" " + tm.substring(tm.indexOf("price"), tm.length()));
+//            oldOrd = oldOrd.substring(oldOrd.indexOf("type"), oldOrd.indexOf("type") + 8);
+//            oldOrd = oldOrd.concat(" " + tm.substring(tm.indexOf("price"), tm.length()));
+            oldOrd = oldOrd.substring(oldOrd.indexOf("order_id:"), oldOrd.indexOf("order_id:") + 18);
             tmp.put("delOrd", oldOrd);
         }
         return tmp;
@@ -95,43 +91,53 @@ public class Algoritm {
         double quantiti = trustedLimitUSD / prise;
         String chekByOrSell = Calculation.getChekTrustBalans(Bot_Action.key, Bot_Action.secret, Bot_Action.getValent(), trustedLimitUSD, String.valueOf(prise)).get("chekVal").toString();
 
-        System.out.println("------------------------");
-        System.out.println("oldOrderPrise " + oldOrderPrise);
-        System.out.println("profit " + persProfit);
-        System.out.println("usd " + trustedLimitUSD);
-        System.out.println("eth " + trustedLimitETH);
-        System.out.println("By оr Sell " + chekByOrSell);
-        System.out.println("LifeTime " + orderLifeTime);
-        System.out.println("quantiti " + quantiti);
-        System.out.println("------------------------");
-
-        System.out.println(priseMonitor(439.6, prise));
-        System.out.println(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
-        int oldNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
-        int newNumOrders = 0;
-        String newOrd = "";
-        String oldOrd = "";
-
+        OrderMonitor or = new OrderMonitor();
+        or.start();
+       String tt = OrderTupes.sellOrder(6000, 2);
+        System.out.println(tt);
+       tt = tt.replaceAll("\"", ""); 
+       tt = tt.substring(tt.indexOf("order_id:"), tt.indexOf("order_id:") + 18);
+       String ee = OrderTupes.sellOrder(5000, 2);
+        System.out.println(ee);
+       ee = ee.replaceAll("\"", ""); 
+       ee = ee.substring(ee.indexOf("order_id:"), ee.indexOf("order_id:") + 18);
         while (true) {
-            newNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
-            newOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
-            System.out.println("newOrd " + newOrd + " oldOrd " + oldOrd);
-            System.out.println(newNumOrders + "#  =   #" + oldNumOrders);
-            if (newNumOrders < oldNumOrders) {
-
-                System.out.println("сработал ордер");
-                System.out.println(newOrd + " new   old " + oldOrd);
-                System.out.println(getDelleteOrder(Bot_Action.key, Bot_Action.secret, newOrd, oldOrd).get("delOrd"));
-                oldNumOrders = newNumOrders;
-                oldOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
-            }
-            oldNumOrders = newNumOrders;
-
-            oldOrd = newOrd;
             Thread.sleep(1000);
+            if(OrderMonitor.getMonitRes().toString().equalsIgnoreCase(tt)){
+                System.out.println("Сработал");
+            System.out.println(OrderMonitor.getMonitRes());
+            }
+            if(OrderMonitor.getMonitRes().toString().equalsIgnoreCase(ee)){
+                System.out.println("Сработал");
+            System.out.println(OrderMonitor.getMonitRes());
+            }
 
-//            System.out.println("oldOrd " + oldOrd);
+            
+            
         }
+
+//        int oldNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
+//        int newNumOrders = 0;
+//        String newOrd = "";
+//        String oldOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();;
+//        while (true) {
+//            newNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
+//            newOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
+//            if (newNumOrders < oldNumOrders) {
+//                System.out.println(getDelleteOrder(Bot_Action.key, Bot_Action.secret, newOrd, oldOrd).get("delOrd").toString());
+//                oldNumOrders = newNumOrders;
+//                oldOrd = newOrd;
+//            }
+//            if (newNumOrders > oldNumOrders) {
+//                oldOrd = newOrd;
+//            }
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(OrderMonitor.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            oldNumOrders = newNumOrders;
+//        }
 //                    Проверка какой ордер создать вначале
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //        if (chekByOrSell.equalsIgnoreCase("sell")) {
