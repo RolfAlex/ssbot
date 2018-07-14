@@ -95,32 +95,97 @@ public class Algoritm {
         return order;
     }
 
+    public static String getOrderTupe(String order) {
+        if (order.length() > 5) {
+            order = order.replaceAll("\"", "");
+            order = order.substring(order.indexOf("tupe") + 5, order.indexOf("tupe") + 8);
+        } else {
+            order = "0";
+        }
+        return order;
+    }
+
     public static void main(String[] args) throws InterruptedException, SocketTimeoutException {
         OrderMonitor or = new OrderMonitor();
         double prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(Bot_Action.key, Bot_Action.secret, Bot_Action.pair).get("1").toString()), "#0.0000");
 
         String orderTupe_1 = OrderTupes.sellOrder(6000, 2);
-        String orderTupe_2 = "";
-        String orderTupe_3 = "";
+        String orderTupe_1_Ind = "";
+        double orderTupe_1_PrSel = 0.0;
+        double orderTupe_1_PrBuy = 0.0;
 
-        System.out.println(orderTupe_1);
-  
+        String orderTupe_2 = "";
+        String orderTupe_2_Ind = "";
+        double orderTupe_2_PrSel = 0.0;
+        double orderTupe_2_PrBuy = 0.0;
+
+        String orderTupe_3 = "";
+        String orderTupe_3_Ind = "";
+
+        System.out.println(getOrderTupe(orderTupe_1));
+
         or.start();
         while (true) {
-            Thread.sleep(1000);
-
-            if (OrderMonitor.getMonitRes().toString().equalsIgnoreCase(getOrderId(orderTupe_1))) {
-                System.out.println("Сработал orderTupe_1 prise" + getOrderPrise(orderTupe_1));
-                System.out.println(OrderMonitor.getMonitRes());
+            if (prise > orderTupe_1_PrSel + 2 && orderTupe_1_Ind.equalsIgnoreCase("sellDoneTupe1")) {
+                //нужно создать (sell)
+                orderTupe_2 = OrderTupes.sellOrder(prise, 2);
             }
-            System.out.println(OrderMonitor.getMonitRes());
+            if (prise < orderTupe_1_PrBuy - 2 && orderTupe_1_Ind.equalsIgnoreCase("buyDoneTupe1") && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
+                //нужно создать (buy)
+                orderTupe_2 = OrderTupes.buyOrder(prise, 2);
+            }
+            if (prise > orderTupe_2_PrSel + 30 && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
+                //нужно создать (sell)
+                orderTupe_3 = OrderTupes.sellOrder(prise, 2);
+            }
+            if (prise < orderTupe_2_PrBuy - 30 && orderTupe_2_Ind.equalsIgnoreCase("buyDoneTupe2") && orderTupe_3_Ind.equalsIgnoreCase("sellDoneTupe3")) {
+                //нужно создать (buy)
+                orderTupe_3 = OrderTupes.buyOrder(prise, 2);
+            }
+            Thread.sleep(1000);
+            if (OrderMonitor.getMonitRes().toString().equalsIgnoreCase(getOrderId(orderTupe_1))) {
+                switch (getOrderTupe(orderTupe_1)) {
+                    case "sel":
+                        System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_1));
+                        orderTupe_1_PrSel = Double.valueOf(getOrderPrise(orderTupe_1));
+                        //нужно создать (buy)
+                        orderTupe_1 = OrderTupes.sellOrder(5000, 2);
+                        orderTupe_1_Ind = "sellDoneTupe1";
+                        break;
+                    case "buy":
+                        System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_1));
+                        orderTupe_1_PrBuy = Double.valueOf(getOrderPrise(orderTupe_1));
+                        //нужно создать (sell)
+                        orderTupe_1 = OrderTupes.sellOrder(4000, 2);
+                        orderTupe_1_Ind = "buyDoneTupe1";
+                        break;
+                }
+            }
             if (OrderMonitor.getMonitRes().toString().equalsIgnoreCase(getOrderId(orderTupe_2))) {
-                System.out.println("Сработал orderTupe_2");
-                System.out.println(OrderMonitor.getMonitRes());
+                switch (getOrderTupe(orderTupe_2)) {
+                    case "sel":
+                        System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_2));
+                        orderTupe_2_PrSel = Double.valueOf(getOrderPrise(orderTupe_2));
+                        orderTupe_2_Ind = "sellDoneTupe2";
+                        break;
+                    case "buy":
+                        System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_1));
+                        orderTupe_1_PrBuy = Double.valueOf(getOrderPrise(orderTupe_1));
+                        orderTupe_2_Ind = "buyDoneTupe2";
+                        break;
+                }
             }
             if (OrderMonitor.getMonitRes().toString().equalsIgnoreCase(getOrderId(orderTupe_3))) {
-                System.out.println("Сработал orderTupe_3");
-                System.out.println(OrderMonitor.getMonitRes());
+                switch (getOrderTupe(orderTupe_3)) {
+                    case "sel":
+                        System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_3));
+                        orderTupe_3_Ind = "sellDoneTupe3";
+                        break;
+                    case "buy":
+                        System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_3));
+                        orderTupe_3_Ind = "buyDoneTupe3";
+                        break;
+                }
             }
 
         }
