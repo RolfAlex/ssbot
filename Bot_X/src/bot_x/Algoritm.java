@@ -41,7 +41,7 @@ public class Algoritm {
         }
         return info;
     }
-
+    //65
     public static HashMap getDelleteOrder(String key, String secret, String newOrd, String oldOrd) {
         HashMap<String, String> tmp = new HashMap<>();
         String tm = "";
