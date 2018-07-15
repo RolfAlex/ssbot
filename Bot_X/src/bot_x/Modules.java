@@ -189,10 +189,13 @@ public class Modules {
 
     public static HashMap getUserOpenOrders(String key, String secret) {
         Exmo e = new Exmo(key, secret);
+        String openOrders = "";
         String result = e.Request("user_open_orders", null);
         HashMap<String, String> hashAr = new HashMap<String, String>();
         if (!result.equalsIgnoreCase("{}")) {
             result = result.replaceAll("\"ETH_USD\":\\[", "").replaceAll("\\{", "").replaceAll("\"", "").replaceAll("}]}", "");
+            openOrders = result.replaceAll("},", "\n");
+            hashAr.put("allOpenOrders", openOrders);
             String[] ar = result.split(",");
             String ee = "";
             int num = 1;
@@ -216,8 +219,9 @@ public class Modules {
 
     public static void main(String[] args) throws InterruptedException {
                 Modules mod = new Modules();
-        System.out.println(getOrderBook(Bot_Action.key, Bot_Action.secret, Bot_Action.pair, "100").get("bid").toString());
-//        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num"));
+//        System.out.println(getOrderBook(Bot_Action.key, Bot_Action.secret, Bot_Action.pair, "100").get("bid").toString());
+//        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("allOpenOrders"));
+//        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order"));
 //        System.out.println(getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("orderId"));
 //        System.out.println(orderIdCancel(Bot_Action.key, Bot_Action.secret, "940413108"));
 //        System.out.println(getUserBalansInfo(Bot_Action.key, Bot_Action.secret).get("reserv"));

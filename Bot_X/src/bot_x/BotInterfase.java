@@ -5,6 +5,10 @@
  */
 package bot_x;
 
+import static bot_x.Algoritm.getOrderError;
+import static bot_x.Algoritm.getOrderId;
+import static bot_x.Algoritm.getOrderPrise;
+import static bot_x.Algoritm.getOrderTupe;
 import static bot_x.Calculation.getChekTrustBalans;
 import static bot_x.Modules.getConfBallans;
 import java.awt.event.ActionEvent;
@@ -578,167 +582,123 @@ public class BotInterfase extends javax.swing.JFrame {
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                System.out.println("st");
-                prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(key, secret, pair).get("1").toString()), "#0.0000");
-                while (stop) {
-                    double trustedLimitUSD = Double.parseDouble((String) Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), Bot_Action.getTrustLimit(), String.valueOf(prise)).get("trustUsd"));
-                    double trustedLimitETH = Double.parseDouble((String) Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), Bot_Action.getTrustLimit(), String.valueOf(prise)).get("trustEth"));
-                    double persProfit = Bot_Action.getPrsProfit(); // НУЖНО ОБРАБОТАТЬ!!!!!!!!!!!!!!!111
-                    double orderLifeTime = Bot_Action.getorderLifeTime();
-                    int lifeTime = 0; //Счетчик жизни
-                    double orderPrise = 0.0;
-                    boolean checkByOrBit = true; //проверка buy or sell
-                    double oldOrderPrise = 0.0;
-                    double quantiti = trustedLimitUSD / prise;
-                    String chekByOrSell = Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), trustedLimitUSD, String.valueOf(prise)).get("chekVal").toString();
+                OrderMonitor or = new OrderMonitor();
+                double prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(Bot_Action.key, Bot_Action.secret, Bot_Action.pair).get("1").toString()), "#0.0000");
+                String chekByOrSell = Calculation.getChekTrustBalans(key, secret, Bot_Action.getValent(), Bot_Action.getTrustLimit(), String.valueOf(prise)).get("chekVal").toString();
+                double persenrProf = Bot_Action.getPrsProfit(); // НУЖНО ОБРАБОТАТЬ!!!!!!!!!!!!!!!111
+                boolean orderCheker = false;
 
-                    System.out.println("------------------------");
-                    System.out.println("oldOrderPrise " + oldOrderPrise);
-                    System.out.println("profit " + persProfit);
-                    System.out.println("usd " + trustedLimitUSD);
-                    System.out.println("eth " + trustedLimitETH);
-                    System.out.println("By оr Sell " + chekByOrSell);
-                    System.out.println("LifeTime " + orderLifeTime);
-                    System.out.println("quantiti " + quantiti);
-                    System.out.println("------------------------");
+                String orderTupe_1 = "";
+                String orderTupe_1_Ind = "";
+                double orderTupe_1_PrSel = 0.0;
+                double orderTupe_1_PrBuy = 0.0;
 
-//                    Проверка какой ордер создать вначале
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if (chekByOrSell.equalsIgnoreCase("sell")) {
-                        //Здесь нужно создать ордер на продажу
-                        orderPrise = Calculation.getFormatPrise(Calculation.getOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise), "#0.00");
-                        oldOrderPrise = orderPrise;
-                        String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
-                        System.out.println(e);
-                        jOrderList.setText("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + e);
-                        System.out.println("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + e);
-                        checkByOrBit = true;
-                    } else if (chekByOrSell.equalsIgnoreCase("buy")) {
-                        //Здесь нужно создать ордер на покупку
-                        orderPrise = Calculation.getFormatPrise(Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD, prise), "#0.00");
-                        oldOrderPrise = orderPrise;
-                        String e = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
-                        System.out.println(e);
-                        jOrderList.setText("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + e);
-                        System.out.println("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + e);
-                        checkByOrBit = false;
-                    }
-                    jOrderList.append("\n" + (String) Modules.getUserOpenOrders(key, secret).get("order"));
-                    System.out.println("oldOrderPrise " + oldOrderPrise);
-                    System.out.println("Ордер создан вхождение в цикл");
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////                    
+                String orderTupe_2 = "";
+                String orderTupe_2_Ind = "";
+                double orderTupe_2_PrSel = 0.0;
+                double orderTupe_2_PrBuy = 0.0;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////                    
-                    while (stop) {
-                        prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(key, secret, pair).get("1").toString()), "#0.00000");
-                        String getUserOpenOrders = Modules.getUserOpenOrders(key, secret).get("order").toString();
-                        quantiti = trustedLimitUSD / prise;
-                        jLabel1.setText(String.valueOf(prise));
-                        System.out.println(lifeTime);
-                        Thread.sleep(500);
-
-//         ********     ПРОДАЖА         ********
-                        if (checkByOrBit == true && getUserOpenOrders.equalsIgnoreCase("Нету открытых ордеров")) {
-                            String ch = "";
-                            orderPrise = Calculation.getOldOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD, oldOrderPrise);
-                            quantiti = Double.parseDouble(Modules.getConfBallans(key, secret, valent).get("usd").toString()) / orderPrise;
-
-                            jFinishOrderList.append("**Срабатывание ордера на ПРОДАЖУ**\nЦена ордера на продажу \n" + oldOrderPrise + "\n");
-                            System.out.println("**Срабатывание ордера на ПРОДАЖУ**" + "\n" + "Цена ордера на продажу " + oldOrderPrise);
-                            //Здесь нужно создать ордер на покупку
-                            do {
-                                ch = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
-                                System.out.println("Cоздание ордера на покупку " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            oldOrderPrise = orderPrise;
-                            jOrderList.setText("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-                            Thread.sleep(500);
-                            jOrderList.append("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
-                            System.out.println("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-
-                            checkByOrBit = false;
-                            lifeTime = 0;
-                            getUserOpenOrders = Modules.getUserOpenOrders(key, secret).get("order").toString();
-                        }
-
-//         ********     ПОКУПКА         ********
-                        if (checkByOrBit == false && getUserOpenOrders.equalsIgnoreCase("Нету открытых ордеров")) {
-                            String ch = "";
-                            orderPrise = Calculation.getOldOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), oldOrderPrise);
-
-                            jFinishOrderList.append("**Срабатывание ордера на ПОКУПКУ**\nЦена ордера на покупку " + oldOrderPrise + "\n");
-                            System.out.println("**Срабатывание ордера на ПОКУПКУ**" + "\n" + "Цена ордера на покупку " + oldOrderPrise);
-                            //Здесь нужно создать ордер на продажу
-                            do {
-                                ch = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
-                                System.out.println("Cоздание ордера на продажу " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            oldOrderPrise = orderPrise;
-                            jOrderList.setText("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + ch);
-                            Thread.sleep(500);
-                            jOrderList.setText("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
-                            System.out.println("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + ch);
-                            checkByOrBit = true;
-                            lifeTime = 0;
-                        } //ЖИЗНЬ ОРДЕРА
-
-                        if (lifeTime > orderLifeTime && checkByOrBit == false) {
-                            String ch = "";
-                            jCanseledOrders.append("Отмена старого ордера на покупку " + "\n" + getUserOpenOrders + "\n");
-                            //Здесь нужно отменить ордер по id
-                            do {
-                                ch = Modules.orderIdCancel(key, secret, (String) Modules.getUserOpenOrders(key, secret).get("orderId"));
-                                Thread.sleep(500);
-                                System.out.println("застрял на отмене " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            orderPrise = Calculation.getOrderBuyPrise(pair, persProfit, key, secret, trustedLimitUSD, prise);
-                            quantiti = Double.parseDouble(Modules.getConfBallans(key, secret, valent).get("usd").toString()) / orderPrise;
-
-                            //Здесь нужно создать ордер на покупку
-                            do {
-                                ch = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(quantiti), String.valueOf(orderPrise), "buy");
-                                Thread.sleep(500);
-                                System.out.println("Cоздание ордера на покупку " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            oldOrderPrise = orderPrise;
-                            System.out.println("oldOrderPrise " + oldOrderPrise);
-                            jOrderList.setText("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-                            Thread.sleep(500);
-                            jOrderList.append("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
-                            System.out.println("Cоздание ордера на ПОКУПКУ " + orderPrise + "\n" + ch);
-
-                            checkByOrBit = false;
-                            lifeTime = 0;
-
-                        } else if (lifeTime > orderLifeTime && checkByOrBit == true) {
-                            String ch = "";
-                            jCanseledOrders.append("Отмена старого ордера на продажу " + "\n" + getUserOpenOrders + "\n");
-                            //Здесь нужно отменить ордер по id
-                            do {
-                                ch = Modules.orderIdCancel(key, secret, (String) Modules.getUserOpenOrders(key, secret).get("orderId"));
-                                System.out.println("застрял на отмене " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            orderPrise = Calculation.getOldOrderSellPrise(pair, Bot_Action.getOrderCount(), persProfit, trustedLimitUSD, key, secret, Bot_Action.getAverageOrCurent(), prise);
-
-                            //Здесь нужно создать ордер на продажу
-                            do {
-                                ch = Modules.orderTypeCreated(key, secret, Bot_Action.pair, String.valueOf(trustedLimitETH), String.valueOf(orderPrise), "sell");
-                                System.out.println("Cоздание ордера на покупку " + ch);
-                            } while (ch.indexOf("true") == -1);
-                            oldOrderPrise = orderPrise;
-                            jOrderList.setText("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + ch);
-                            Thread.sleep(500);
-                            jOrderList.setText("\n" + Modules.getUserOpenOrders(key, secret).get("order").toString());
-                            System.out.println("Cоздание ордера на ПРОДАЖУ " + orderPrise + "\n" + ch);
-                            checkByOrBit = true;
-                            lifeTime = 0;
-                        }
-
-                        lifeTime++;
-                    }
+                String orderTupe_3 = "";
+                String orderTupe_3_Ind = "";
+                
+                
+                
+                if (chekByOrSell.equalsIgnoreCase("sell")) {
+                    //Здесь нужно создать ордер на продажу
+                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
+                    System.out.println("Cоздание ордера на ПРОДАЖУ " + orderTupe_1 + "\n");
+                } else if (chekByOrSell.equalsIgnoreCase("buy")) {
+                    //Здесь нужно создать ордер на покупку
+                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
+                    System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
                 }
+                jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
+                System.out.println("Ордер создан вхождение в цикл");
+                System.out.println(getOrderError(orderTupe_1));
 
-                stop = true;
+                or.start();
+                while (stop) {
+                    prise = Calculation.getFormatPrise(Double.parseDouble(Modules.getPrise(Bot_Action.key, Bot_Action.secret, Bot_Action.pair).get("1").toString()), "#0.0000");
+                    jLabel1.setText(String.valueOf(prise));
+                    if (prise > orderTupe_1_PrSel + 2 && orderTupe_1_Ind.equalsIgnoreCase("sellDoneTupe1")) {
+                        //нужно создать (sell)
+                        orderTupe_2 = OrderTupes.sellOrder(prise, persenrProf);
+                        getOrderError(orderTupe_2);
+                    }
+                    if (prise < orderTupe_1_PrBuy - 2 && orderTupe_1_Ind.equalsIgnoreCase("buyDoneTupe1") && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
+                        //нужно создать (buy)
+                        orderTupe_2 = OrderTupes.buyOrder(prise, persenrProf);
+                        getOrderError(orderTupe_2);
+                    }
+                    if (prise > orderTupe_2_PrSel + 30 && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
+                        //нужно создать (sell)
+                        orderTupe_3 = OrderTupes.sellOrder(prise, persenrProf);
+                        getOrderError(orderTupe_3);
+                    }
+                    if (prise < orderTupe_2_PrBuy - 30 && orderTupe_2_Ind.equalsIgnoreCase("buyDoneTupe2") && orderTupe_3_Ind.equalsIgnoreCase("sellDoneTupe3")) {
+                        //нужно создать (buy)
+                        orderTupe_3 = OrderTupes.buyOrder(prise, persenrProf);
+                        getOrderError(orderTupe_3);
+                    }
+                    Thread.sleep(1000);
+                    if (OrderMonitor.getMonitRes().equalsIgnoreCase(getOrderId(orderTupe_1))) {
+                        switch (getOrderTupe(orderTupe_1)) {
+                            case "sel":
+                                System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_1));
+                                jFinishOrderList.append(orderTupe_1 + "\n");
+                                orderTupe_1_PrSel = Double.valueOf(getOrderPrise(orderTupe_1));
+                                //нужно создать (buy)
+                                orderTupe_1 = OrderTupes.sellOrder(orderTupe_1_PrSel, persenrProf);
+                                getOrderError(orderTupe_1);
+                                orderTupe_1_Ind = "sellDoneTupe1";
+                                break;
+                            case "buy":
+                                System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_1));
+                                jFinishOrderList.append(orderTupe_1 + "\n");
+                                orderTupe_1_PrBuy = Double.valueOf(getOrderPrise(orderTupe_1));
+                                //нужно создать (sell)
+                                orderTupe_1 = OrderTupes.sellOrder(orderTupe_1_PrBuy, persenrProf);
+                                getOrderError(orderTupe_1);
+                                orderTupe_1_Ind = "buyDoneTupe1";
+                                break;
+                        }
+                        orderCheker = true;
+                    }
+                    if (OrderMonitor.getMonitRes().equalsIgnoreCase(getOrderId(orderTupe_2))) {
+                        switch (getOrderTupe(orderTupe_2)) {
+                            case "sel":
+                                System.out.println("Сработал orderTupe_2 prise sell " + getOrderPrise(orderTupe_2));
+                                orderTupe_2_PrSel = Double.valueOf(getOrderPrise(orderTupe_2));
+                                orderTupe_2_Ind = "sellDoneTupe2";
+                                break;
+                            case "buy":
+                                System.out.println("Сработал orderTupe_2 prise buy " + getOrderPrise(orderTupe_2));
+                                orderTupe_1_PrBuy = Double.valueOf(getOrderPrise(orderTupe_1));
+                                orderTupe_2_Ind = "buyDoneTupe2";
+                                break;
+                        }
+                        orderCheker = true;
+                    }
+                    if (OrderMonitor.getMonitRes().equalsIgnoreCase(getOrderId(orderTupe_3))) {
+                        switch (getOrderTupe(orderTupe_3)) {
+                            case "sel":
+                                System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_3));
+                                orderTupe_3_Ind = "sellDoneTupe3";
+                                break;
+                            case "buy":
+                                System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_3));
+                                orderTupe_3_Ind = "buyDoneTupe3";
+                                break;
+                        }
+                        orderCheker = true;
+                    }
+                    System.out.println(prise);
+                    if (orderCheker == true) {
+                        jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
+                        orderCheker = false;
+                    }
+                    stop = true;
+                }
                 return null;
             }
         };
@@ -805,7 +765,7 @@ public class BotInterfase extends javax.swing.JFrame {
                 new BotInterfase().setVisible(true);
                 Balans.setText((String) Modules.getUserBalansInfo(key, secret).get("balans"));
                 BalansReserved.setText((String) Modules.getUserBalansInfo(key, secret).get("reserv"));
-                jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("order"));
+                jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
 
 //                jTextArea1.append((String) m.getUserBalansInfo(key, secret).get("balans"));            
             }
