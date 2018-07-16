@@ -600,18 +600,23 @@ public class BotInterfase extends javax.swing.JFrame {
 
                 String orderTupe_3 = "";
                 String orderTupe_3_Ind = "";
-                
-                
-                
-                if (chekByOrSell.equalsIgnoreCase("sell")) {
-                    //Здесь нужно создать ордер на продажу
-                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
-                    System.out.println("Cоздание ордера на ПРОДАЖУ " + orderTupe_1 + "\n");
-                } else if (chekByOrSell.equalsIgnoreCase("buy")) {
-                    //Здесь нужно создать ордер на покупку
-                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
-                    System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
-                }
+
+//                if (chekByOrSell.equalsIgnoreCase("sell")) {
+//                    //Здесь нужно создать ордер на продажу
+//                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
+//                    System.out.println("Cоздание ордера на ПРОДАЖУ " + orderTupe_1 + "\n");
+//                } else if (chekByOrSell.equalsIgnoreCase("buy")) {
+//                    //Здесь нужно создать ордер на покупку
+//                    orderTupe_1 = OrderTupes.buyOrder(prise, persenrProf);
+//                    System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
+//                }
+                orderTupe_1_PrSel = 450.27;
+                //нужно создать (buy)
+                orderTupe_1 = OrderTupes.buyOrder(orderTupe_1_PrSel, persenrProf);
+                getOrderError(orderTupe_1);
+                orderTupe_1_Ind = "sellDoneTupe1";
+                System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
+
                 jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
                 System.out.println("Ордер создан вхождение в цикл");
                 System.out.println(getOrderError(orderTupe_1));
@@ -648,7 +653,7 @@ public class BotInterfase extends javax.swing.JFrame {
                                 jFinishOrderList.append(orderTupe_1 + "\n");
                                 orderTupe_1_PrSel = Double.valueOf(getOrderPrise(orderTupe_1));
                                 //нужно создать (buy)
-                                orderTupe_1 = OrderTupes.sellOrder(orderTupe_1_PrSel, persenrProf);
+                                orderTupe_1 = OrderTupes.buyOrder(orderTupe_1_PrSel, persenrProf);
                                 getOrderError(orderTupe_1);
                                 orderTupe_1_Ind = "sellDoneTupe1";
                                 break;
@@ -692,7 +697,6 @@ public class BotInterfase extends javax.swing.JFrame {
                         }
                         orderCheker = true;
                     }
-                    System.out.println(prise);
                     if (orderCheker == true) {
                         jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
                         orderCheker = false;
