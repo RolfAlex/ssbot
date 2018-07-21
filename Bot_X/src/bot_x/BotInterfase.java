@@ -601,21 +601,15 @@ public class BotInterfase extends javax.swing.JFrame {
                 String orderTupe_3 = "";
                 String orderTupe_3_Ind = "";
 
-//                if (chekByOrSell.equalsIgnoreCase("sell")) {
-//                    //Здесь нужно создать ордер на продажу
-//                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
-//                    System.out.println("Cоздание ордера на ПРОДАЖУ " + orderTupe_1 + "\n");
-//                } else if (chekByOrSell.equalsIgnoreCase("buy")) {
-//                    //Здесь нужно создать ордер на покупку
-//                    orderTupe_1 = OrderTupes.buyOrder(prise, persenrProf);
-//                    System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
-//                }
-                orderTupe_1_PrSel = 450.27;
-                //нужно создать (buy)
-                orderTupe_1 = OrderTupes.buyOrder(orderTupe_1_PrSel, persenrProf);
-                getOrderError(orderTupe_1);
-                orderTupe_1_Ind = "sellDoneTupe1";
-                System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
+                if (chekByOrSell.equalsIgnoreCase("sell")) {
+                    //Здесь нужно создать ордер на продажу
+                    orderTupe_1 = OrderTupes.sellOrder(prise, persenrProf);
+                    System.out.println("Cоздание ордера на ПРОДАЖУ " + orderTupe_1 + "\n");
+                } else if (chekByOrSell.equalsIgnoreCase("buy")) {
+                    //Здесь нужно создать ордер на покупку
+                    orderTupe_1 = OrderTupes.buyOrder(prise, persenrProf);
+                    System.out.println("Cоздание ордера на ПОКУПКУ " + orderTupe_1 + "\n");
+                }
 
                 jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
                 System.out.println("Ордер создан вхождение в цикл");
@@ -629,42 +623,52 @@ public class BotInterfase extends javax.swing.JFrame {
                         //нужно создать (sell)
                         orderTupe_2 = OrderTupes.sellOrder(prise, persenrProf);
                         getOrderError(orderTupe_2);
+                        orderTupe_1_Ind = "";
                     }
                     if (prise < orderTupe_1_PrBuy - 2 && orderTupe_1_Ind.equalsIgnoreCase("buyDoneTupe1") && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
                         //нужно создать (buy)
                         orderTupe_2 = OrderTupes.buyOrder(prise, persenrProf);
                         getOrderError(orderTupe_2);
+                        orderTupe_1_Ind = "";
                     }
                     if (prise > orderTupe_2_PrSel + 30 && orderTupe_2_Ind.equalsIgnoreCase("sellDoneTupe2")) {
                         //нужно создать (sell)
                         orderTupe_3 = OrderTupes.sellOrder(prise, persenrProf);
                         getOrderError(orderTupe_3);
+                        orderTupe_2_Ind = "";
                     }
                     if (prise < orderTupe_2_PrBuy - 30 && orderTupe_2_Ind.equalsIgnoreCase("buyDoneTupe2") && orderTupe_3_Ind.equalsIgnoreCase("sellDoneTupe3")) {
                         //нужно создать (buy)
                         orderTupe_3 = OrderTupes.buyOrder(prise, persenrProf);
                         getOrderError(orderTupe_3);
+                        orderTupe_2_Ind = "";
                     }
                     Thread.sleep(1000);
                     if (OrderMonitor.getMonitRes().equalsIgnoreCase(getOrderId(orderTupe_1))) {
                         switch (getOrderTupe(orderTupe_1)) {
                             case "sel":
                                 System.out.println("Сработал orderTupe_1 prise sell " + getOrderPrise(orderTupe_1));
+
                                 jFinishOrderList.append(orderTupe_1 + "\n");
                                 orderTupe_1_PrSel = Double.valueOf(getOrderPrise(orderTupe_1));
+                                System.out.println("orderTupe_1_PrSel" + orderTupe_1_PrSel);
                                 //нужно создать (buy)
                                 orderTupe_1 = OrderTupes.buyOrder(orderTupe_1_PrSel, persenrProf);
                                 getOrderError(orderTupe_1);
                                 orderTupe_1_Ind = "sellDoneTupe1";
+                                System.out.println("orderTupe_1_Ind " + orderTupe_1_Ind);
                                 break;
                             case "buy":
+
                                 System.out.println("Сработал orderTupe_1 prise buy " + getOrderPrise(orderTupe_1));
                                 jFinishOrderList.append(orderTupe_1 + "\n");
                                 orderTupe_1_PrBuy = Double.valueOf(getOrderPrise(orderTupe_1));
+                                System.out.println("orderTupe_1_PrBuy" + orderTupe_1_PrBuy);
                                 //нужно создать (sell)
                                 orderTupe_1 = OrderTupes.sellOrder(orderTupe_1_PrBuy, persenrProf);
                                 getOrderError(orderTupe_1);
-                                orderTupe_1_Ind = "buyDoneTupe1";
+                                orderTupe_1_Ind = "buyDoneTupe1 ";
+                                System.out.println("buyDoneTupe1 " + orderTupe_1_Ind);
                                 break;
                         }
                         orderCheker = true;
@@ -698,10 +702,12 @@ public class BotInterfase extends javax.swing.JFrame {
                         orderCheker = true;
                     }
                     if (orderCheker == true) {
+                        System.out.println("+++++++++++++++++++++++++++allOpenOrders++++++++++++++++++++++++");
                         jOrderList.setText((String) Modules.getUserOpenOrders(key, secret).get("allOpenOrders"));
                         orderCheker = false;
                     }
                     stop = true;
+                    System.out.println(prise);
                 }
                 return null;
             }

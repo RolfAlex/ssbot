@@ -25,6 +25,7 @@ public class OrderMonitor extends Thread {
             String newOrd = "";
             String oldOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();;
             while (true) {
+                System.out.println("I`m working");
                 res = "";
                 newNumOrders = Integer.valueOf(Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("num").toString());
                 newOrd = Modules.getUserOpenOrders(Bot_Action.key, Bot_Action.secret).get("order").toString();
